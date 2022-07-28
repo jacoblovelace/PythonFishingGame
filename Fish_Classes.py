@@ -3,9 +3,13 @@
 class Fish:
     NORMALITY = 100
 
-    def __init__(self, size):
+    def __init__(self, size, pos):
         self.size = size
         self.value = (self.size * 400) / self.NORMALITY
+        self.pos = pos
+
+    def move(self, new_pos):
+        self.pos = new_pos
 
 
 class Goldfish(Fish):
