@@ -11,14 +11,16 @@ def start_game(save_files):
     # autosave
     save_the_save_files(save_files)
 
-    # generate a pond
-    fish_spots, rows, cols = generate_pond()
+    test_pond = Pond('test_pond', 4, 4, [Goldfish])
+    test_pond.place_fish()
 
     # fish until either durability runs out or no more fish left in pond
+    fish_spots = test_pond.fish_spots
+    cols, rows = test_pond.x, test_pond.y
     durability = int(input("Set durability value: "))
     max_durability = durability
     while durability > 0 and len(fish_spots) > 0:
-        durability = do_fish(fish_spots, rows, cols, max_durability, durability)
+        durability = do_fish(test_pond, max_durability, durability)
         if durability != 0:
             fish_spots = move_fish(fish_spots, rows, cols)
 

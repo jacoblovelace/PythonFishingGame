@@ -20,7 +20,7 @@ class Pond:
         # create list of valid fish based on normality
         normalized_fish = []
         for fish in self.fish_types:
-            for _ in fish.NORMALITY:
+            for _ in range(fish.NORMALITY):
                 normalized_fish.append(fish)
 
         for _ in range(num_fish):
