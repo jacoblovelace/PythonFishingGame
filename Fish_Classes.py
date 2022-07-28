@@ -5,7 +5,7 @@ class Fish:
 
     def __init__(self, size=1, pos=0):
         self.size = size
-        self.value = (self.size * 400) / self.NORMALITY
+        self.value = (self.size * 400) // self.NORMALITY
         self.pos = pos
 
     def move(self, new_pos):

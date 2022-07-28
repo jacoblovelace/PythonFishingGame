@@ -20,7 +20,7 @@ def start_game(save_files):
     while durability > 0 and len(test_pond.fish_spots) > 0:
         durability = do_fish(test_pond, max_durability, durability)
         if durability != 0:
-            test_pond.fish_spots = move_fish(test_pond.fish_spots, test_pond.y, test_pond.x)
+            move_fish(test_pond, test_pond.y, test_pond.x)
 
 
 if __name__ == '__main__':
