@@ -1,10 +1,13 @@
 import random
 from Fish_Classes import *
+from Pond_Class import *
 
 
-def place_fish(pond_size):
+def place_fish(pond):
+    pond_size = pond.x * pond.y
+
     # generate random number of fish, no more than 1/3 pond size
-    num_fish = random.randrange(1, (pond_size // 3) + 1)
+    num_fish = random.randrange(2, (pond_size // 3) + 1)
 
     # assign each fish a unique number representing its starting location in the pond
     fish_spots = random.sample(range(0, pond_size), num_fish)

@@ -17,4 +17,4 @@ class Goldfish(Fish):
     NORMALITY = 50
 
     def __init__(self, size=1, pos=0):
-        super().__init__(size)
+        super().__init__(size, pos)
