@@ -1,21 +1,5 @@
-import random
 from Fish_Classes import *
 from Pond_Class import *
-
-
-def place_fish(pond):
-    pond_size = pond.x * pond.y
-
-    # generate random number of fish, no more than 1/3 pond size
-    num_fish = random.randrange(2, (pond_size // 3) + 1)
-
-    # assign each fish a unique number representing its starting location in the pond
-    fish_spots = random.sample(range(0, pond_size), num_fish)
-
-    # print("num_fish:", num_fish)
-    # print(fish_spots)
-
-    return fish_spots
 
 
 def do_fish(pond, max_durability, cur_durability):
@@ -23,17 +7,23 @@ def do_fish(pond, max_durability, cur_durability):
 
     get_spot = input(">>> enter spot: ")
 
+    # convert input into int
     r = ord(get_spot[0]) - 65
     c = int(get_spot[1]) - 1
     spot = (pond.x * r) + c
 
     fish_found = False
-    for fish in pond.fish_spots:
-        if spot == fish:
-            print("\t\x1B[3mYou caught a fish!\x1B[0m")
-            pond.fish_spots.remove(fish)
-            fish_found = True
-            break
+    if spot in pond.fish_spots:
+        print("\t\x1B[3mYou caught a fish!\x1B[0m")
+        print('len fish spots:', len(pond.fish_spots))
+        pond.fish_spots.remove(spot)
+        # loop to find matching fish for pos
+        for fish in pond.fish:
+            if spot == fish.pos:
+                pond.fish.remove(fish)
+                break
+        fish_found = True
+        print('len fish spots:', len(pond.fish_spots))
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")
 
