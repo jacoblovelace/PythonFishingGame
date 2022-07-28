@@ -94,6 +94,7 @@ def move_fish(fish_spots, rows, cols):
     return moved_fish_spots
 
 
+# UNECESSARY
 def generate_pond():
     pond_spots = []
     rows = int(input("Rows: "))

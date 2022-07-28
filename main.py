@@ -12,7 +12,7 @@ def start_game(save_files):
     save_the_save_files(save_files)
 
     # generate a pond
-    pond_spots, fish_spots, rows, cols = generate_pond()
+    fish_spots, rows, cols = generate_pond()
 
     # fish until either durability runs out or no more fish left in pond
     durability = int(input("Set durability value: "))
