@@ -3,7 +3,7 @@
 class Fish:
     NORMALITY = 100
 
-    def __init__(self, size, pos):
+    def __init__(self, size=1, pos=0):
         self.size = size
         self.value = (self.size * 400) / self.NORMALITY
         self.pos = pos
@@ -16,5 +16,5 @@ class Goldfish(Fish):
     NAME = "goldfish"
     NORMALITY = 50
 
-    def __init__(self, size):
+    def __init__(self, size=1, pos=0):
         super().__init__(size)
