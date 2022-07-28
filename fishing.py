@@ -1,4 +1,5 @@
 import random
+from Fish_Classes import *
 
 
 def place_fish(pond_size):
