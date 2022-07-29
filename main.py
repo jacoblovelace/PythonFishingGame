@@ -1,6 +1,7 @@
 from file_functions import *
 from fishing import *
 from ponds import *
+from Bucket_Class import Fishing_Bucket
 
 
 def display_pond_info(pond):
@@ -54,6 +55,8 @@ def start_game(file, save_files):
     # autosave
     save_the_save_files(save_files)
 
+    test_bucket = Fishing_Bucket(20)
+
     selected_pond = select_pond()
     selected_pond.place_fish()
 
@@ -61,9 +64,12 @@ def start_game(file, save_files):
     durability = int(input("Set durability value: "))
     max_durability = durability
     while durability > 0 and len(selected_pond.fish_spots) > 0:
-        durability = do_fish(selected_pond, max_durability, durability, file)
+        durability = do_fish(selected_pond, max_durability, durability, test_bucket)
         if durability != 0:
             move_fish(selected_pond)
+
+
+    test_bucket.select_fish()
 
 
 if __name__ == '__main__':

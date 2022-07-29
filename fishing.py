@@ -1,12 +1,12 @@
 from Fish_Classes import *
 from Pond_Class import *
+from Bucket_Class import Fishing_Bucket
 import random
+from numpy.random import choice
 
 
-def do_fish(pond, max_durability, cur_durability, file):
+def do_fish(pond, max_durability, cur_durability, bucket):
     pond.display_pond()
-
-    sizes = ['small', 'medium', 'large']
 
     get_spot = input(">>> enter spot: ")
 
@@ -20,12 +20,16 @@ def do_fish(pond, max_durability, cur_durability, file):
         pond.fish_spots.remove(spot)
         for fish in pond.fish:
             if spot == fish.pos:
-                print("\t\x1B[3mYou caught a fish!\x1B[0m")
-                print("\t\x1B[3mFish Info: {} {} ({} coins)\x1B[0m".format(sizes[fish.size-1], fish.NAME, fish.value))
-                file.score += fish.value
-                print('Total coins:', file.score)
-                pond.fish.remove(fish)
-                break
+                did_catch = choice([True, False], 1, [fish.cactchability, 1-fish.cactchability])[0]
+                if did_catch:
+                    print("\t\x1B[3mYou caught a fish!\x1B[0m")
+                    print("\t\x1B[3mFish Info: {} {} ({} coins)\x1B[0m".format(fish.size, fish.NAME, fish.value))
+                    bucket.add_fish(fish)
+                    pond.fish.remove(fish)
+                    break
+                else:
+                    print("\t\x1B[3mThe fish got away!\x1B[0m")
+                    break
         fish_found = True
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")

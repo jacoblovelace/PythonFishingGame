@@ -3,7 +3,6 @@
 
 from Fish_Classes import *
 from file_functions import display_options_from_list
-from Save_File_Class import *
 
 
 class Fishing_Bucket:
@@ -13,18 +12,32 @@ class Fishing_Bucket:
         self.capacity = capacity
 
     def display_contents(self):
-        print("--- FISHING BUCKET ---")
-        for i in range(len(self.contents)):
-            for j in range(3):
-                print("[" + str(i+1) + "] - " + self.contents[i], end="\t")
-            print("")
+        print("\n--- FISHING BUCKET ---")
+        tab_dist = 30
+        for i in range(self.capacity):
+            end_line = ""
+            if (i + 1) % 3 == 0:
+                end_line = "\n"
+
+            extra_space = " " * (3 - (len(str(i + 1))))
+
+            if i + 1 > len(self.contents):
+                display_string = "[" + str(i + 1) + "]" + extra_space + " {empty}"
+            else:
+                display_string = "[" + str(i + 1) + "]" + extra_space + " " + self.contents[i].NAME
+            print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
+        print("")
 
     def select_fish(self):
-        self.display_contents()
         while True:
+            self.display_contents()
             num = input("(press 'q' to quit) Enter a slot number: ")
-            if num.isdigit() and (0 < int(num) <= len(self.contents)):
-                self.fish_options(num)
+            if num.isdigit() and (0 < int(num) <= self.capacity):
+                num = int(num)
+                if num <= len(self.contents):
+                    self.fish_options(num)
+                else:
+                    print("[!] Slot is empty")
             elif num == 'q':
                 break
             else:
@@ -38,11 +51,14 @@ class Fishing_Bucket:
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    self.release_fish(index-1)
+                    self.release_fish(index - 1)
+                    return
                 elif selection == 2:
-                    pass
+                    self.sell_fish(index - 1)
+                    return
                 elif selection == 3:
-                    pass
+                    print("I added it to the aquarium (not actually lol)!")
+                    return
                 else:
                     break
             else:
@@ -50,11 +66,13 @@ class Fishing_Bucket:
 
     def release_fish(self, index):
         while True:
-            confirm_release = input("Are you sure you want to release this fish:" + self.contents[index].NAME + " (y/n)?")
+            fish = self.contents[index]
+            confirm_release = input("Are you sure you want to release "
+                                    + fish.to_string() + " ? (y/n): ")
             if confirm_release == 'y':
                 # remove item at specified index
                 released_fish = self.contents.pop(index)
-                print("Released " + released_fish.NAME)
+                print("Released " + released_fish.to_string())
                 break
             elif confirm_release == 'n':
                 break
@@ -64,14 +82,14 @@ class Fishing_Bucket:
     def sell_fish(self, index):
         fish_to_sell = self.contents[index]
         while True:
-            confirm_sell = input("Are you sure you want to sell this fish:"
-                                 + fish_to_sell.NAME + ", worth " + fish_to_sell.value + " coins (y/n)?")
+            confirm_sell = input("Are you sure you want to sell "
+                                 + fish_to_sell.to_string() + ", worth " + str(fish_to_sell.value) + " coins? (y/n): ")
             if confirm_sell == 'y':
                 # remove item at specified index
                 sold_fish = self.contents.pop(index)
                 # give coins of fish to player
 
-                print("Sold " + sold_fish.NAME + " for " + sold_fish.value + " coins")
+                print("Sold " + fish_to_sell.to_string() + " for " + str(fish_to_sell.value) + " coins!")
                 break
             elif confirm_sell == 'n':
                 break
@@ -80,7 +98,7 @@ class Fishing_Bucket:
 
     def add_fish(self, item):
         # check if item is a child of fish class
-        if issubclass(item, Fish):
+        if issubclass(type(item), Fish):
             # check if item has capacity to be added
             if len(self.contents) <= self.capacity:
                 self.contents.append(item)

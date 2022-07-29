@@ -1,26 +1,22 @@
 # Class for Pond object
+import random
 
 
 class Pond:
 
-    def __init__(self, name, x, y, fish_types, description):
+    def __init__(self, name, x, y, num_fish_range, fish_types, description):
         self.name = name
         self.x = x
         self.y = y
         self.fish_types = fish_types
+        self.description = description
         self.fish_spots = []
         self.fish = []
-        self.board = [i for i in range(self.x * self.y)]
-        self.description = description
+        self.pond_size = self.x * self.y
+        self.board = [i for i in range(self.pond_size)]
+        self.num_fish = random.randrange((self.pond_size // num_fish_range[0]), (self.pond_size // num_fish_range[1] + 1))
 
     def place_fish(self):
-        import random
-
-        pond_size = self.x * self.y
-
-        # generate random number of fish
-        # 1/6 to 1/3
-        num_fish = random.randrange((pond_size // 6), (pond_size // 3) + 1)
 
         # create list of valid fish based on normality
         normalized_fish = []
@@ -28,7 +24,7 @@ class Pond:
             for _ in range(fish.NORMALITY):
                 normalized_fish.append(fish)
 
-        self.fish_spots = random.sample(range(pond_size), num_fish)
+        self.fish_spots = random.sample(range(self.pond_size), self.num_fish)
         for fish_spot in self.fish_spots:
             self.fish.append(random.choice(normalized_fish)(random.randrange(3)+1, fish_spot))
 
