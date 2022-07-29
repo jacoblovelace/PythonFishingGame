@@ -1,8 +1,9 @@
 from file_functions import *
 from fishing import *
+from ponds import *
 
 
-def start_game(save_files):
+def start_game(file, save_files):
     # options list
     print("")
     options = ['Go Fishing', 'Shop', 'Puzzle', 'Save & Quit']
@@ -11,17 +12,16 @@ def start_game(save_files):
     # autosave
     save_the_save_files(save_files)
 
-    test_pond = Pond('test_pond', 6, 4, [Goldfish, Koi])
-    test_pond.create_pond_board()
+    test_pond = PONDS[0]
     test_pond.place_fish()
 
     # fish until either durability runs out or no more fish left in pond
     durability = int(input("Set durability value: "))
     max_durability = durability
     while durability > 0 and len(test_pond.fish_spots) > 0:
-        durability = do_fish(test_pond, max_durability, durability)
+        durability = do_fish(test_pond, max_durability, durability, file)
         if durability != 0:
-            move_fish(test_pond, test_pond.y, test_pond.x)
+            move_fish(test_pond)
 
 
 if __name__ == '__main__':
@@ -42,6 +42,4 @@ if __name__ == '__main__':
 
                 game_running = True
                 while game_running:
-                    start_game(save_file_list)
-
-# test comment
+                    start_game(game_file, save_file_list)
