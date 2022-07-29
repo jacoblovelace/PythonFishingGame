@@ -117,7 +117,7 @@ def create_new_file(file, save_list):
 
 def file_options(file, save_list):
 
-    print("Select an action below:\n")
+    print("Select an action below:")
     file_actions = ["Play", "Delete", "Go Back"]
     display_options_from_list(file_actions)
 

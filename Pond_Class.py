@@ -3,7 +3,7 @@
 
 class Pond:
 
-    def __init__(self, name, x, y, fish_types):
+    def __init__(self, name, x, y, fish_types, description):
         self.name = name
         self.x = x
         self.y = y
@@ -11,6 +11,7 @@ class Pond:
         self.fish_spots = []
         self.fish = []
         self.board = [i for i in range(self.x * self.y)]
+        self.description = description
 
     def place_fish(self):
         import random

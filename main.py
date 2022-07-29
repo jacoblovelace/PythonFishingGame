@@ -3,6 +3,15 @@ from fishing import *
 from ponds import *
 
 
+def display_pond_info(pond):
+    print("\nPond Info:")
+    print("\tDescription:")
+    print("\t\t" + pond.description)
+    print("\tFish:")
+    for fish in pond.fish_types:
+        print("\t\t- " + fish.NAME)
+
+
 def select_pond():
     choosing_location = True
     pond_selection = 1
@@ -26,10 +35,7 @@ def select_pond():
                         choosing_location = False
                         break
                     elif pond_options_select == 2:
-                        print("- Pond Info:")
-                        print("\t- Fish in this location:")
-                        for fish in PONDS[pond_selection-1].fish_types:
-                            print("\t\t- " + fish.NAME)
+                        display_pond_info(PONDS[pond_selection-1])
                     else:
                         break
                 else:
