@@ -14,7 +14,7 @@ class Fish:
 
 class Goldfish(Fish):
     NAME = "goldfish"
-    NORMALITY = 40
+    NORMALITY = 60
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -22,7 +22,15 @@ class Goldfish(Fish):
 
 class Koi(Fish):
     NAME = "koi"
-    NORMALITY = 30
+    NORMALITY = 75
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+
+class Catfish(Fish):
+    NAME = "catfish"
+    NORMALITY = 40
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -52,17 +60,9 @@ class Carp(Fish):
         super().__init__(size, pos)
 
 
-class Catfish(Fish):
-    NAME = "catfish"
-    NORMALITY = 25
-
-    def __init__(self, size=1, pos=0):
-        super().__init__(size, pos)
-
-
 class Pike(Fish):
     NAME = "pike"
-    NORMALITY = 40
+    NORMALITY = 30
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -71,6 +71,38 @@ class Pike(Fish):
 class Salmon(Fish):
     NAME = "salmon"
     NORMALITY = 40
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+
+class Crappie(Fish):
+    NAME = "crappie"
+    NORMALITY = 70
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+
+class Perch(Fish):
+    NAME = "perch"
+    NORMALITY = 55
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+
+class Shad(Fish):
+    NAME = "shad"
+    NORMALITY = 60
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+
+class Herring(Fish):
+    NAME = "herring"
+    NORMALITY = 75
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
