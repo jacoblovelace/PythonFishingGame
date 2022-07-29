@@ -3,6 +3,7 @@
 
 from Fish_Classes import *
 from file_functions import display_options_from_list
+from Save_File_Class import *
 
 
 class Fishing_Bucket:
@@ -47,18 +48,6 @@ class Fishing_Bucket:
             else:
                 print("[!] Invalid option")
 
-    def add_fish(self, item):
-        # check if item is a child of fish class
-        if issubclass(item, Fish):
-            # check if item has capacity to be added
-            if len(self.contents) <= self.capacity:
-                self.contents.append(item)
-                print("Added " + item.NAME + " to the bag")
-            else:
-                print("[!] Bucket is full")
-        else:
-            print("(i) Only fish can be added to a fishing bucket")
-
     def release_fish(self, index):
         while True:
             confirm_release = input("Are you sure you want to release this fish:" + self.contents[index].NAME + " (y/n)?")
@@ -71,3 +60,32 @@ class Fishing_Bucket:
                 break
             else:
                 print("[!] Invalid option")
+
+    def sell_fish(self, index):
+        fish_to_sell = self.contents[index]
+        while True:
+            confirm_sell = input("Are you sure you want to sell this fish:"
+                                 + fish_to_sell.NAME + ", worth " + fish_to_sell.value + " coins (y/n)?")
+            if confirm_sell == 'y':
+                # remove item at specified index
+                sold_fish = self.contents.pop(index)
+                # give coins of fish to player
+
+                print("Sold " + sold_fish.NAME + " for " + sold_fish.value + " coins")
+                break
+            elif confirm_sell == 'n':
+                break
+            else:
+                print("[!] Invalid option")
+
+    def add_fish(self, item):
+        # check if item is a child of fish class
+        if issubclass(item, Fish):
+            # check if item has capacity to be added
+            if len(self.contents) <= self.capacity:
+                self.contents.append(item)
+                print("Added " + item.NAME + " to the bag")
+            else:
+                print("[!] Bucket is full")
+        else:
+            print("(i) Only fish can be added to a fishing bucket")
