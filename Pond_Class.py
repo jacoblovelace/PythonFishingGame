@@ -11,6 +11,14 @@ class Pond:
         self.fish_spots = []
         self.fish = []
 
+    def create_pond_board(self):
+        board = []
+        for i in range(self.x):
+            for j in range(self.y):
+                board.append((self.y * i) + j)
+        print(board)
+        return board
+
     def place_fish(self):
         pond_size = self.x * self.y
 

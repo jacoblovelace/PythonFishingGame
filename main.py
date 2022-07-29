@@ -11,7 +11,8 @@ def start_game(save_files):
     # autosave
     save_the_save_files(save_files)
 
-    test_pond = Pond('test_pond', 4, 4, [Goldfish])
+    test_pond = Pond('test_pond', 6, 4, [Goldfish, Koi])
+    test_pond.create_pond_board()
     test_pond.place_fish()
 
     # fish until either durability runs out or no more fish left in pond

@@ -44,6 +44,8 @@ def move_fish(pond, rows, cols):
     moved_fish_spots = []
     fish_to_options = {}
 
+    board = pond.create_pond_board()
+
     # calculate and make list of move options for each fish
     for fish_spot in pond.fish_spots:
         options = []
@@ -70,25 +72,26 @@ def move_fish(pond, rows, cols):
     # sort list of options shortest to longest to increase chances of move availability
     list_of_options.sort(key=len)
 
-    for options in list_of_options:
-        for key, value in fish_to_options.items():
-            if value == options:
-                cur_fish = key
-        # choose a random spot from list of options
-        choice = random.choice(options)
-        # if spot already in the new fish spots, remove it and choose again
-        while choice in moved_fish_spots and len(options) > 0:
-            options.remove(choice)
-            fish_to_options[cur_fish] = options
-            if len(options) > 0:
-                choice = random.choice(options)
-        if len(options) > 0:
-            moved_fish_spots.append(choice)
-            for fish in pond.fish:
-                print('fish.pos', fish.pos, 'cur_fish', cur_fish)
-                if fish.pos == cur_fish:
+    # for options in list_of_options:
+    #     for key, value in fish_to_options.items():
+    #         if value == options:
+    #             cur_fish = key
+    #     # choose a random spot from list of options
+    #     choice = random.choice(options)
+    #     # if spot already in the new fish spots, remove it and choose again
+    #     while choice in moved_fish_spots and len(options) > 0:
+    #         options.remove(choice)
+    #         fish_to_options[cur_fish] = options
+    #         if len(options) > 0:
+    #             choice = random.choice(options)
+    #     if len(options) > 0:
+    #         moved_fish_spots.append(choice)
+    #         for fish in pond.fish:
+    #             print('fish.pos', fish.pos, 'cur_fish', cur_fish)
+    #             if fish.pos == cur_fish:
+    #                 fish.pos = choice
 
-                    fish.pos = choice
+
 
     pond.fish_spots = moved_fish_spots
     print(moved_fish_spots)
