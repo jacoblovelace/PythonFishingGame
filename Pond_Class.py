@@ -18,8 +18,9 @@ class Pond:
 
         pond_size = self.x * self.y
 
-        # generate random number of fish, no more than 1/3 pond size
-        num_fish = random.randrange(self.x, (pond_size // 3) + 1)
+        # generate random number of fish
+        # 1/6 to 1/3
+        num_fish = random.randrange((pond_size // 6), (pond_size // 3) + 1)
 
         # create list of valid fish based on normality
         normalized_fish = []
