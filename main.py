@@ -4,15 +4,36 @@ from ponds import *
 
 
 def select_pond():
-    for i in range(len(PONDS)):
-        print("[" + str(i+1) + "] - " + PONDS[i].name)
-    print('')
+    choosing_location = True
+    pond_selection = 1
+    while choosing_location:
+        for i in range(len(PONDS)):
+            print("[" + str(i + 1) + "] - " + PONDS[i].name)
+        print('')
 
-    while True:
         pond_selection = input("Select a pond: ")
         if pond_selection.isdigit() and (0 < int(pond_selection) <= len(PONDS)):
             pond_selection = int(pond_selection)
-            break
+
+            while True:
+                options = ['Fish Here', 'Pond Info', 'Go Back']
+                display_options_from_list(options)
+
+                pond_options_select = input("Enter an option: ")
+                if pond_options_select.isdigit() and (0 < int(pond_options_select) <= len(options)):
+                    pond_options_select = int(pond_options_select)
+                    if pond_options_select == 1:
+                        choosing_location = False
+                        break
+                    elif pond_options_select == 2:
+                        print("- Pond Info:")
+                        print("\t- Fish in this location:")
+                        for fish in PONDS[pond_selection-1].fish_types:
+                            print("\t\t- " + fish.NAME)
+                    else:
+                        break
+                else:
+                    print("[!] Invalid Option")
         else:
             print("[!] Invalid Option")
 

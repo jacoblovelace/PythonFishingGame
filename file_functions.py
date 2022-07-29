@@ -43,6 +43,7 @@ def delete_file(save_files, file):
 
 
 def display_options_from_list(lst):
+    print("")
     for i in range(0, len(lst)):
         print("[" + str(i + 1) + "] - " + lst[i])
     print("")
