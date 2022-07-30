@@ -56,7 +56,18 @@ def main_menu(bucket):
         selection = input("Enter an option: ")
         if selection.isdigit() and (0 < int(selection) <= len(options)):
             if selection == '1':
-                select_pond()
+                selected_pond = select_pond()
+                selected_pond.place_fish()
+
+                # fish until either durability runs out or no more fish left in pond
+                durability = int(input("Set durability value: "))
+                max_durability = durability
+                while durability > 0 and len(selected_pond.fish_spots) > 0:
+                    durability = do_fish(selected_pond, max_durability, durability, bucket)
+                    if durability != 0:
+                        move_fish(selected_pond)
+
+                bucket.select_fish()
             elif selection == '2':
                 bucket.select_fish()
             elif selection == '3':
@@ -79,18 +90,7 @@ def start_game(file, save_files):
     if not main_menu(my_bucket):
         return False
 
-    selected_pond = select_pond()
-    selected_pond.place_fish()
 
-    # fish until either durability runs out or no more fish left in pond
-    durability = int(input("Set durability value: "))
-    max_durability = durability
-    while durability > 0 and len(selected_pond.fish_spots) > 0:
-        durability = do_fish(selected_pond, max_durability, durability, my_bucket)
-        if durability != 0:
-            move_fish(selected_pond)
-
-    my_bucket.select_fish()
 
 
 if __name__ == '__main__':
