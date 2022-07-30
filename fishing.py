@@ -9,17 +9,27 @@ def do_fish(pond, max_durability, cur_durability, bucket):
     pond.display_pond()
 
     while True:
-        spot_input = input(">>> enter spot: ")
-        if spot_input[0].isalpha() and spot_input[1:].isdigit():
-            if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):
-                r = ord(spot_input[0].upper()) - 65
-                c = int(spot_input[1]) - 1
-                spot = (pond.x * r) + c
-                break
+        spot_input = input(">>> enter spot (press 'q' to leave pond): ")
+        if spot_input == 'q':
+            confirm_quit = 'y'
+            while confirm_quit != 'n':
+                confirm_quit = input("Are you sure you want to leave this fishing location? [y/n]: ")
+                if confirm_quit == 'y':
+                    cur_durability = 0
+                    return cur_durability
+                elif confirm_quit != 'n':
+                    print("[!] invalid option\n")
+        else:
+            if spot_input[0].isalpha() and spot_input[1:].isdigit():
+                if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):
+                    r = ord(spot_input[0].upper()) - 65
+                    c = int(spot_input[1]) - 1
+                    spot = (pond.x * r) + c
+                    break
+                else:
+                    print("[!] Invalid move")
             else:
                 print("[!] Invalid move")
-        else:
-            print("[!] Invalid move")
 
     fish_found = False
     if spot in pond.fish_spots:

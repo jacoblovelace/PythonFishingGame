@@ -190,7 +190,7 @@ class Jellyfish(Fish):
 
 
 class Sardine(Fish):
-    NAME = "jellyfish"
+    NAME = "sardine"
     NORMALITY = 60
     LEVEL = 2
 

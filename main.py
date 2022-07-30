@@ -67,7 +67,6 @@ def main_menu(bucket):
                     if durability != 0:
                         move_fish(selected_pond)
 
-                bucket.select_fish()
             elif selection == '2':
                 bucket.select_fish()
             elif selection == '3':
