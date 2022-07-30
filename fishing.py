@@ -8,12 +8,18 @@ from numpy.random import choice
 def do_fish(pond, max_durability, cur_durability, bucket):
     pond.display_pond()
 
-    get_spot = input(">>> enter spot: ")
-
-    # convert input into int
-    r = ord(get_spot[0]) - 65
-    c = int(get_spot[1]) - 1
-    spot = (pond.x * r) + c
+    while True:
+        spot_input = input(">>> enter spot: ")
+        if len(spot_input) == 2:
+            if spot_input[0].isalpha() and spot_input[1].isdigit():
+                r = ord(spot_input[0].upper()) - 65
+                c = int(spot_input[1]) - 1
+                spot = (pond.x * r) + c
+                break
+            else:
+                print("[!] Invalid move")
+        else:
+            print("[!] Invalid move")
 
     fish_found = False
     if spot in pond.fish_spots:
