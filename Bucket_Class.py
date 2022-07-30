@@ -45,7 +45,7 @@ class Fishing_Bucket:
 
     def fish_options(self, index):
         fish = self.contents[index-1]
-        print("Selected :" + fish.to_string + " (" + str(fish.value) + " coins)")
+        print("Selected :" + fish.to_string() + " (" + str(fish.value) + " coins)")
         options = ["Release", "Sell", "Add to Aquarium", "Go Back"]
         display_options_from_list(options)
         while True:
