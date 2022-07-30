@@ -177,3 +177,52 @@ class Bull_Shark(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.6
+
+
+class Jellyfish(Fish):
+    NAME = "jellyfish"
+    NORMALITY = 55
+    LEVEL = 3
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.6
+
+
+class Sardine(Fish):
+    NAME = "jellyfish"
+    NORMALITY = 60
+    LEVEL = 2
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.9
+
+
+class Anchovy(Fish):
+    NAME = "anchovy"
+    NORMALITY = 60
+    LEVEL = 1
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+
+class Great_White_Shark(Fish):
+    NAME = "great white shark"
+    NORMALITY = 25
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.2
+
+
+class Tuna(Fish):
+    NAME = "tuna"
+    NORMALITY = 55
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.4
