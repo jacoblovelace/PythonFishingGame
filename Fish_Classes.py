@@ -211,11 +211,11 @@ class Anchovy(Fish):
 class Great_White_Shark(Fish):
     NAME = "great white shark"
     NORMALITY = 25
-    LEVEL = 4
+    LEVEL = 6
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.2
+        self.cactchability = 0.1
 
 
 class Tuna(Fish):
@@ -226,3 +226,63 @@ class Tuna(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.4
+
+
+class Clownfish(Fish):
+    NAME = "clownfish"
+    NORMALITY = 60
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.8
+
+
+class Snapper(Fish):
+    NAME = "snapper"
+    NORMALITY = 50
+    LEVEL = 3
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.9
+
+
+class Angelfish(Fish):
+    NAME = "angelfish"
+    NORMALITY = 40
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.8
+
+
+class Triggerfish(Fish):
+    NAME = "angelfish"
+    NORMALITY = 40
+    LEVEL = 5
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.5
+
+
+class Tang(Fish):
+    NAME = "angelfish"
+    NORMALITY = 45
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.9
+
+
+class Pufferfish(Fish):
+    NAME = "angelfish"
+    NORMALITY = 25
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.3

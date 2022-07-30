@@ -15,7 +15,7 @@ furious_river = Pond('Furious River', 12, 5, [5, 4], [Electric_Eel, Piranha, Bul
                      "Dangerous!.")
 open_ocean = Pond('Open Ocean', 24, 24, [8, 6], [Herring, Jellyfish, Anchovy, Sardine, Great_White_Shark, Tuna],
                   "The big, empty, open sea.")
-rainbow_reef = Pond('Rainbow Reef', 24, 24, [8, 6], [],
+rainbow_reef = Pond('Rainbow Reef', 12, 12, [3, 2], [Clownfish, Snapper, Angelfish, Triggerfish, Tang, Pufferfish],
                     "A beautiful coral reef, inhabitated by a plethora of ocean dwellers.")
 
 PONDS = [
@@ -25,5 +25,6 @@ PONDS = [
     muddy_marsh,
     radioactive_lagoon,
     furious_river,
-    open_ocean
+    open_ocean,
+    rainbow_reef
 ]
