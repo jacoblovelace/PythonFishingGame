@@ -1,6 +1,8 @@
 # Fish class and its subclasses
 from math import sqrt
 
+from numpy.random import choice
+
 
 class Fish:
     NORMALITY = 100
@@ -13,10 +15,22 @@ class Fish:
         self.size = sizes[self.size_num-1]
         self.value = int((sqrt(self.size_num) / (sqrt(self.NORMALITY + 10) * 6)) * self.LEVEL * 1000) - 10
         self.pos = pos
-        self.cactchability = 1
+        self.cactchability = 1.0
+        self.breakability = 0.0
 
     def to_string(self):
         return "\x1B[3m" + self.size + " " + self.NAME + "\x1B[0m"
+
+    def catch_status(self):
+        statuses = ["caught", "fled", "broke"]
+        if choice([True, False], 1, [self.cactchability, 1 - self.cactchability])[0]:
+            if choice([True, False], 1, [1 - self.breakability, self.breakability])[0]:
+                return statuses[0]
+            else:
+                print("\t\x1B[3mThe fish broke your rod!\x1B[0m")
+                return statuses[2]
+        print("\t\x1B[3mThe fish got away!\x1B[0m")
+        return statuses[1]
 
 
 class Goldfish(Fish):
@@ -156,27 +170,29 @@ class Electric_Eel(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.4
+        self.cactchability = 0.6
 
 
 class Piranha(Fish):
     NAME = "piranha"
-    NORMALITY = 50
+    NORMALITY = 70
     LEVEL = 3
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.9
+        self.breakability = 0.2
 
 
 class Bull_Shark(Fish):
     NAME = "bull shark"
     NORMALITY = 20
-    LEVEL = 3
+    LEVEL = 7
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.6
+        self.cactchability = 0.5
+        self.breakability = 0.7
 
 
 class Jellyfish(Fish):
@@ -211,11 +227,12 @@ class Anchovy(Fish):
 class Great_White_Shark(Fish):
     NAME = "great white shark"
     NORMALITY = 25
-    LEVEL = 6
+    LEVEL = 8
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.1
+        self.cactchability = 0.2
+        self.breakability = 0.8
 
 
 class Tuna(Fish):
@@ -286,3 +303,58 @@ class Pufferfish(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.3
+
+
+class Hammerhead_Shark(Fish):
+    NAME = "hammerhead shark"
+    NORMALITY = 30
+    LEVEL = 7
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.4
+        self.breakability = 0.7
+
+
+class Whale_Shark(Fish):
+    NAME = "whale shark"
+    NORMALITY = 10
+    LEVEL = 9
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.2
+        self.breakability = 0.9
+
+
+class Tiger_Shark(Fish):
+    NAME = "tiger shark"
+    NORMALITY = 25
+    LEVEL = 8
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.2
+        self.breakability = 0.8
+
+
+class Mako_Shark(Fish):
+    NAME = "mako shark"
+    NORMALITY = 30
+    LEVEL = 7
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.2
+        self.breakability = 0.6
+
+
+class Blue_Shark(Fish):
+    NAME = "blue shark"
+    NORMALITY = 45
+    LEVEL = 7
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.2
+        self.breakability = 0.7

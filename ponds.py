@@ -17,6 +17,9 @@ open_ocean = Pond('Open Ocean', 24, 24, [8, 6], [Herring, Jellyfish, Anchovy, Sa
                   "The big, empty, open sea.")
 rainbow_reef = Pond('Rainbow Reef', 12, 12, [3, 2], [Clownfish, Snapper, Angelfish, Triggerfish, Tang, Pufferfish],
                     "A beautiful coral reef, inhabitated by a plethora of ocean dwellers.")
+killer_tooth_bay = Pond('Killer Tooth Bay', 8, 13, [5, 3],
+                        [Blue_Shark, Mako_Shark, Tiger_Shark, Hammerhead_Shark, Great_White_Shark, Whale_Shark],
+                        "You'll need a strong rod if you fish here.")
 
 PONDS = [
     sakura_pond,
@@ -26,5 +29,6 @@ PONDS = [
     radioactive_lagoon,
     furious_river,
     open_ocean,
-    rainbow_reef
+    rainbow_reef,
+    killer_tooth_bay
 ]

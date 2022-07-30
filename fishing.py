@@ -1,8 +1,4 @@
-from Fish_Classes import *
-from Pond_Class import *
-from Bucket_Class import Fishing_Bucket
 import random
-from numpy.random import choice
 
 
 def do_fish(pond, max_durability, cur_durability, bucket):
@@ -36,16 +32,18 @@ def do_fish(pond, max_durability, cur_durability, bucket):
         pond.fish_spots.remove(spot)
         for fish in pond.fish:
             if spot == fish.pos:
-                did_catch = choice([True, False], 1, [fish.cactchability, 1-fish.cactchability])[0]
-                if did_catch:
+                status = fish.catch_status()
+                if status == "caught":
                     print("\t\x1B[3mYou caught a fish!\x1B[0m")
                     print("\t\x1B[3mFish Info: {} {} ({} coins)\x1B[0m".format(fish.size, fish.NAME, fish.value))
                     bucket.add_fish(fish)
                     pond.fish.remove(fish)
                     break
-                else:
-                    print("\t\x1B[3mThe fish got away!\x1B[0m")
+                elif status == "fled":
                     break
+                else:
+                    cur_durability = 0
+                    return cur_durability
         fish_found = True
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")
