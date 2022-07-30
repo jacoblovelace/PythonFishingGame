@@ -10,8 +10,8 @@ def do_fish(pond, max_durability, cur_durability, bucket):
 
     while True:
         spot_input = input(">>> enter spot: ")
-        if len(spot_input) == 2:
-            if spot_input[0].isalpha() and spot_input[1].isdigit():
+        if spot_input[0].isalpha() and spot_input[1:].isdigit():
+            if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):
                 r = ord(spot_input[0].upper()) - 65
                 c = int(spot_input[1]) - 1
                 spot = (pond.x * r) + c
