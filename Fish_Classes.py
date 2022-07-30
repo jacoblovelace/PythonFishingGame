@@ -1,14 +1,17 @@
 # Fish class and its subclasses
+from math import sqrt
+
 
 class Fish:
     NORMALITY = 100
     NAME = ""
+    LEVEL = 1
 
     def __init__(self, size=1, pos=0):
         self.size_num = size
         sizes = ['small', 'medium', 'large']
         self.size = sizes[self.size_num-1]
-        self.value = (self.size_num * 500) // self.NORMALITY
+        self.value = int((sqrt(self.size_num) / (sqrt(self.NORMALITY + 10) * 10)) * self.LEVEL * 1000)
         self.pos = pos
         self.cactchability = 1
 
@@ -71,6 +74,7 @@ class Salmon(Fish):
 class Carp(Fish):
     NAME = "carp"
     NORMALITY = 55
+    LEVEL = 2
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -79,6 +83,7 @@ class Carp(Fish):
 class Pike(Fish):
     NAME = "pike"
     NORMALITY = 30
+    LEVEL = 2
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -88,6 +93,7 @@ class Pike(Fish):
 class Crappie(Fish):
     NAME = "crappie"
     NORMALITY = 70
+    LEVEL = 2
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -97,6 +103,7 @@ class Crappie(Fish):
 class Perch(Fish):
     NAME = "perch"
     NORMALITY = 55
+    LEVEL = 2
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -106,6 +113,7 @@ class Perch(Fish):
 class Shad(Fish):
     NAME = "shad"
     NORMALITY = 50
+    LEVEL = 2
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -115,6 +123,7 @@ class Shad(Fish):
 class Herring(Fish):
     NAME = "herring"
     NORMALITY = 40
+    LEVEL = 2
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -133,16 +142,17 @@ class Dead_Fish(Fish):
 class Glowfish(Fish):
     NAME = "glowfish"
     NORMALITY = 15
+    LEVEL = 3
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.value = self.size_num * 80
         self.cactchability = 0.6
 
 
 class Electric_Eel(Fish):
     NAME = "electric eel"
     NORMALITY = 40
+    LEVEL = 3
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -152,6 +162,7 @@ class Electric_Eel(Fish):
 class Piranha(Fish):
     NAME = "piranha"
     NORMALITY = 50
+    LEVEL = 3
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
@@ -161,6 +172,7 @@ class Piranha(Fish):
 class Bull_Shark(Fish):
     NAME = "bull shark"
     NORMALITY = 20
+    LEVEL = 3
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
