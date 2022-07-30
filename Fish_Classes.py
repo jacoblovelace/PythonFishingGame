@@ -259,7 +259,7 @@ class Angelfish(Fish):
 
 
 class Triggerfish(Fish):
-    NAME = "angelfish"
+    NAME = "triggerfish"
     NORMALITY = 40
     LEVEL = 5
 
@@ -269,7 +269,7 @@ class Triggerfish(Fish):
 
 
 class Tang(Fish):
-    NAME = "angelfish"
+    NAME = "tang"
     NORMALITY = 45
     LEVEL = 4
 
@@ -279,7 +279,7 @@ class Tang(Fish):
 
 
 class Pufferfish(Fish):
-    NAME = "angelfish"
+    NAME = "pufferfish"
     NORMALITY = 25
     LEVEL = 4
 
