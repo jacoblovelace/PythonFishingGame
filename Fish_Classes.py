@@ -11,7 +11,7 @@ class Fish:
         self.size_num = size
         sizes = ['small', 'medium', 'large']
         self.size = sizes[self.size_num-1]
-        self.value = int((sqrt(self.size_num) / (sqrt(self.NORMALITY + 6) * 10)) * self.LEVEL * 1000) - 10
+        self.value = int((sqrt(self.size_num) / (sqrt(self.NORMALITY + 10) * 6)) * self.LEVEL * 1000) - 10
         self.pos = pos
         self.cactchability = 1
 
