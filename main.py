@@ -17,6 +17,7 @@ def select_pond():
     choosing_location = True
     pond_selection = 1
     while choosing_location:
+        print("")
         for i in range(len(PONDS)):
             print("[" + str(i + 1) + "] - " + PONDS[i].name)
         print('')
@@ -48,14 +49,35 @@ def select_pond():
     return PONDS[pond_selection-1]
 
 
-def start_game(file, save_files):
-    # options list
-    print("")
+def main_menu(bucket):
+    options = ["Go Fishing", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
+    while True:
+        display_options_from_list(options)
+        selection = input("Enter an option: ")
+        if selection.isdigit() and (0 < int(selection) <= len(options)):
+            if selection == '1':
+                select_pond()
+            elif selection == '2':
+                bucket.select_fish()
+            elif selection == '3':
+                pass
+            elif selection == '4':
+                pass
+            elif selection == '5':
+                pass
+            else:
+                return False
 
+
+def start_game(file, save_files):
     # autosave
     save_the_save_files(save_files)
 
-    test_bucket = Fishing_Bucket(20)
+    my_bucket = Fishing_Bucket(20)
+
+    # display main activity menu
+    if not main_menu(my_bucket):
+        return False
 
     selected_pond = select_pond()
     selected_pond.place_fish()
@@ -64,12 +86,11 @@ def start_game(file, save_files):
     durability = int(input("Set durability value: "))
     max_durability = durability
     while durability > 0 and len(selected_pond.fish_spots) > 0:
-        durability = do_fish(selected_pond, max_durability, durability, test_bucket)
+        durability = do_fish(selected_pond, max_durability, durability, my_bucket)
         if durability != 0:
             move_fish(selected_pond)
 
-
-    test_bucket.select_fish()
+    my_bucket.select_fish()
 
 
 if __name__ == '__main__':
@@ -90,4 +111,5 @@ if __name__ == '__main__':
 
                 game_running = True
                 while game_running:
-                    start_game(game_file, save_file_list)
+                    if not start_game(game_file, save_file_list):
+                        game_running = False
