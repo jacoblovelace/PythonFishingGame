@@ -2,19 +2,22 @@ from file_functions import *
 from fishing import *
 from ponds import *
 from Bucket_Class import Fishing_Bucket
+from general_functions import *
 
 
 def select_pond():
     choosing_location = True
     pond_selection = 1
     while choosing_location:
-        print("")
+        title_display("select a location")
+
+        print("\n[1] Go Back\n")
         for i in range(len(PONDS)):
-            print("[" + str(i + 1) + "] - " + PONDS[i].name)
+            print("[" + str(i + 2) + "] - " + PONDS[i].name)
         print('')
 
         pond_selection = input("Select a pond: ")
-        if pond_selection.isdigit() and (0 < int(pond_selection) <= len(PONDS)):
+        if pond_selection.isdigit() and (0 < int(pond_selection) < len(PONDS)+2):
             pond_selection = int(pond_selection)
 
             while True:
@@ -28,7 +31,7 @@ def select_pond():
                         choosing_location = False
                         break
                     elif pond_options_select == 2:
-                        PONDS[pond_selection-1].display_pond_info()
+                        PONDS[pond_selection-2].display_pond_info()
                     else:
                         break
                 else:
@@ -36,11 +39,12 @@ def select_pond():
         else:
             print("[!] Invalid Option")
 
-    print("Now fishing at " + str(PONDS[pond_selection-1].name) + "...")
-    return PONDS[pond_selection-1]
+    print("Now fishing at " + str(PONDS[pond_selection-2].name) + "...")
+    return PONDS[pond_selection-2]
 
 
 def main_menu(bucket):
+    title_display("main menu")
     options = ["Go Fishing", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
     while True:
         display_options_from_list(options)
@@ -79,8 +83,6 @@ def start_game(file, save_files):
     # display main activity menu
     if not main_menu(my_bucket):
         return False
-
-
 
 
 if __name__ == '__main__':

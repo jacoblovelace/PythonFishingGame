@@ -1,6 +1,7 @@
 import pickle
 import sys
 
+from general_functions import *
 from Save_File_Class import *
 
 
@@ -42,15 +43,8 @@ def delete_file(save_files, file):
     save_the_save_files(save_files)
 
 
-def display_options_from_list(lst):
-    print("")
-    for i in range(0, len(lst)):
-        print("[" + str(i + 1) + "] - " + lst[i])
-    print("")
-
-
 def choose_file():
-    print("\n||| " + ("-" * 25) + " FILE SELECT " + ("-" * 25) + " |||")
+    title_display("file select")
     print("Enter 1, 2, or 3 to select or create a new save file below: (press 'q' to quit)\n")
 
     # load save files and display them
@@ -75,7 +69,7 @@ def choose_file():
                 print("[!] invalid option\n")
 
     # grab file from list of saves
-    print("Loading save file [" + str(file_select_num) + "]...")
+    print("Loading save file [" + str(file_select_num) + "]...\n")
     file = save_list[int(file_select_num) - 1]
 
     # set index attribute of file

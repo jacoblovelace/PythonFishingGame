@@ -4,17 +4,20 @@ import random
 
 class Pond:
 
-    def __init__(self, name, x, y, num_fish_range, fish_types, description):
+    def __init__(self, name, x, y, num_fish_range, deep_sea, fish_types, description):
         self.name = name
         self.x = x
         self.y = y
         self.fish_types = fish_types
         self.description = description
+        self.deep_sea = deep_sea
         self.fish_spots = []
         self.fish = []
         self.pond_size = self.x * self.y
         self.board = [i for i in range(self.pond_size)]
-        self.num_fish = random.randrange((self.pond_size // num_fish_range[0]), (self.pond_size // num_fish_range[1] + 1))
+        self.num_fish_range = num_fish_range
+        self.num_fish = random.randrange((self.pond_size // num_fish_range[0]),
+                                         (self.pond_size // num_fish_range[1] + 1))
 
     def place_fish(self):
 
@@ -26,7 +29,7 @@ class Pond:
 
         self.fish_spots = random.sample(range(self.pond_size), self.num_fish)
         for fish_spot in self.fish_spots:
-            self.fish.append(random.choice(normalized_fish)(random.randrange(3)+1, fish_spot))
+            self.fish.append(random.choice(normalized_fish)(random.randrange(3) + 1, fish_spot))
 
         # place fish on the board
         for fish in self.fish:
@@ -45,8 +48,10 @@ class Pond:
     def display_pond_info(self):
         print("\nPond Info:")
         print("\tSize: " + str(self.x) + " x " + str(self.y))
+        print("\tFish Density: 1/" + str(self.num_fish_range[0]) + " to 1/" + str(self.num_fish_range[1]))
         print("\tDescription: " + self.description)
         print("\tFish:")
         for fish in self.fish_types:
             print("\t\t- " + fish.NAME)
-
+        if self.deep_sea:
+            print("\n\t(i) Deep sea fishing rod required!")

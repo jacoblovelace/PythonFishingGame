@@ -1,6 +1,5 @@
 # Fish class and its subclasses
 from math import sqrt
-
 from numpy.random import choice
 
 
@@ -12,7 +11,7 @@ class Fish:
     def __init__(self, size=1, pos=0):
         self.size_num = size
         sizes = ['small', 'medium', 'large']
-        self.size = sizes[self.size_num-1]
+        self.size = sizes[self.size_num - 1]
         self.value = int((sqrt(self.size_num) / (sqrt(self.NORMALITY + 10) * 6)) * self.LEVEL * 1000) - 10
         self.pos = pos
         self.cactchability = 1.0
@@ -327,6 +326,16 @@ class Sea_Turtle(Fish):
         self.breakability = 0.2
 
 
+class Piece_of_Kelp(Fish):
+    NAME = "piece of kelp"
+    NORMALITY = 40
+    LEVEL = 1
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.value = 0
+
+
 class Giant_Kelpfish(Fish):
     NAME = "giant kelpfish"
     NORMALITY = 50
@@ -348,7 +357,7 @@ class Rockfish(Fish):
 
 
 class Bonito(Fish):
-    NAME = "rockfish"
+    NAME = "bonito"
     NORMALITY = 45
     LEVEL = 4
 
