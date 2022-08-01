@@ -41,3 +41,12 @@ class Pond:
                 print("| " + str(spot), end=" ")
             print("|")
         print('')
+
+    def display_pond_info(self):
+        print("\nPond Info:")
+        print("\tSize: " + str(self.x) + " x " + str(self.y))
+        print("\tDescription: " + self.description)
+        print("\tFish:")
+        for fish in self.fish_types:
+            print("\t\t- " + fish.NAME)
+

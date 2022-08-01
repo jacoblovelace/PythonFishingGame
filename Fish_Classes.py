@@ -160,12 +160,12 @@ class Glowfish(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.6
+        self.cactchability = 0.5
 
 
 class Electric_Eel(Fish):
     NAME = "electric eel"
-    NORMALITY = 40
+    NORMALITY = 35
     LEVEL = 3
 
     def __init__(self, size=1, pos=0):
@@ -180,19 +180,29 @@ class Piranha(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.9
         self.breakability = 0.2
 
 
 class Bull_Shark(Fish):
     NAME = "bull shark"
-    NORMALITY = 20
+    NORMALITY = 15
     LEVEL = 7
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.5
         self.breakability = 0.7
+
+
+class Payara(Fish):
+    NAME = "payara"
+    NORMALITY = 35
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.7
+        self.breakability = 0.3
 
 
 class Jellyfish(Fish):
@@ -238,11 +248,12 @@ class Great_White_Shark(Fish):
 class Tuna(Fish):
     NAME = "tuna"
     NORMALITY = 55
-    LEVEL = 4
+    LEVEL = 5
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.4
+        self.breakability = 0.3
 
 
 class Clownfish(Fish):
@@ -297,12 +308,53 @@ class Tang(Fish):
 
 class Pufferfish(Fish):
     NAME = "pufferfish"
-    NORMALITY = 25
+    NORMALITY = 20
     LEVEL = 4
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.3
+        self.cactchability = 0.4
+
+
+class Sea_Turtle(Fish):
+    NAME = "sea turtle"
+    NORMALITY = 30
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.7
+        self.breakability = 0.2
+
+
+class Giant_Kelpfish(Fish):
+    NAME = "giant kelpfish"
+    NORMALITY = 50
+    LEVEL = 5
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.8
+
+
+class Rockfish(Fish):
+    NAME = "rockfish"
+    NORMALITY = 35
+    LEVEL = 5
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.6
+
+
+class Bonito(Fish):
+    NAME = "rockfish"
+    NORMALITY = 45
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.9
 
 
 class Hammerhead_Shark(Fish):
@@ -358,3 +410,14 @@ class Blue_Shark(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.2
         self.breakability = 0.7
+
+
+class Kraken(Fish):
+    NAME = "kraken"
+    NORMALITY = 5
+    LEVEL = 10
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.0
+        self.breakability = 2.0

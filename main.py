@@ -4,15 +4,6 @@ from ponds import *
 from Bucket_Class import Fishing_Bucket
 
 
-def display_pond_info(pond):
-    print("\nPond Info:")
-    print("\tDescription:")
-    print("\t\t" + pond.description)
-    print("\tFish:")
-    for fish in pond.fish_types:
-        print("\t\t- " + fish.NAME)
-
-
 def select_pond():
     choosing_location = True
     pond_selection = 1
@@ -37,7 +28,7 @@ def select_pond():
                         choosing_location = False
                         break
                     elif pond_options_select == 2:
-                        display_pond_info(PONDS[pond_selection-1])
+                        PONDS[pond_selection-1].display_pond_info()
                     else:
                         break
                 else:

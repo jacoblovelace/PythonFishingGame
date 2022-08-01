@@ -11,12 +11,16 @@ muddy_marsh = Pond('Muddy Marsh', 8, 5, [8, 5], [Bass, Herring, Shad, Catfish, P
                    "Muddy waters.")
 radioactive_lagoon = Pond('Radioactive Lagoon', 10, 9, [2, 2], [Dead_Fish, Glowfish],
                           "Most fish die here.")
-furious_river = Pond('Furious River', 12, 5, [5, 4], [Electric_Eel, Piranha, Bull_Shark],
+furious_river = Pond('Furious River', 12, 5, [5, 4], [Electric_Eel, Piranha, Payara, Bull_Shark],
                      "Dangerous!.")
 open_ocean = Pond('Open Ocean', 24, 24, [8, 6], [Herring, Jellyfish, Anchovy, Sardine, Great_White_Shark, Tuna],
-                  "The big, empty, open sea.")
-rainbow_reef = Pond('Rainbow Reef', 12, 12, [3, 2], [Clownfish, Snapper, Angelfish, Triggerfish, Tang, Pufferfish],
-                    "A beautiful coral reef, inhabitated by a plethora of ocean dwellers.")
+                  "The big, open, middle of the sea.")
+rainbow_reef = Pond('Rainbow Reef', 12, 12, [3, 2], [Clownfish, Snapper, Angelfish, Triggerfish, Tang, Pufferfish,
+                                                     Sea_Turtle],
+                    "A beautiful coral reef situated in warm, tropical waters and inhabitated by a diverse population "
+                    "of ocean dwellers.")
+kelp_forest = Pond('Kelp Forest', 10, 12, [6, 4], [Sea_Turtle, Giant_Kelpfish, Rockfish, Bonito, Blue_Shark],
+                    "")
 killer_tooth_bay = Pond('Killer Tooth Bay', 8, 13, [5, 3],
                         [Blue_Shark, Mako_Shark, Tiger_Shark, Hammerhead_Shark, Great_White_Shark, Whale_Shark],
                         "You'll need a strong rod if you fish here.")
@@ -30,5 +34,6 @@ PONDS = [
     furious_river,
     open_ocean,
     rainbow_reef,
+    kelp_forest,
     killer_tooth_bay
 ]
