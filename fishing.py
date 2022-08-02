@@ -3,11 +3,11 @@
 from general_functions import *
 
 
-def do_fish(pond, bucket, rod):
+def do_fish(pond, bucket, rod, bag):
     pond.display_pond()
 
     while True:
-        spot_input = input(">>> enter spot (press 'q' to leave pond): ")
+        spot_input = input(">>> enter spot (press 'q' to leave pond, press 'b' to view bag): ")
         if spot_input == 'q':
             confirm_quit = 'y'
             while confirm_quit != 'n':
@@ -16,6 +16,8 @@ def do_fish(pond, bucket, rod):
                     return False
                 elif confirm_quit != 'n':
                     print("[!] invalid option\n")
+        elif spot_input == 'b':
+            bag.select_item(True)
         else:
             if spot_input[0].isalpha() and spot_input[1:].isdigit():
                 if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):

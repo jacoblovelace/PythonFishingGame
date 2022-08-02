@@ -50,21 +50,6 @@ def select_pond():
     return PONDS[pond_selection - 2]
 
 
-def fishing_options(my_bag):
-    options = ["Cast", "Bag"]
-    while True:
-        display_options_from_list(options)
-        selection = input(">>> Enter an option: ")
-        if selection.isdigit() and (0 < int(selection) <= len(options)):
-            selection = int(selection)
-            if selection == 1:
-                break
-            else:
-                my_bag.select_item(True)
-        else:
-            print("[!] Invalid option")
-
-
 def main_menu(bucket, rod, my_bag):
     options = ["Go Fishing", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
     while True:
@@ -82,9 +67,8 @@ def main_menu(bucket, rod, my_bag):
 
                         # fish until either durability runs out or no more fish left in pond
                         while rod.cur_durability > 0 and len(selected_pond.fish_spots) > 0:
-                            fishing_options(my_bag)
 
-                            if not do_fish(selected_pond, bucket, rod):
+                            if not do_fish(selected_pond, bucket, rod, my_bag):
                                 break
                             if rod.cur_durability != 0:
                                 selected_pond.move_fish()
