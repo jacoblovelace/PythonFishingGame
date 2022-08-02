@@ -1,3 +1,5 @@
+from time import sleep
+
 from file_functions import *
 from fishing import *
 from ponds import *
@@ -18,7 +20,7 @@ def select_pond():
         print('')
 
         pond_selection = input(">>> Select a pond: ")
-        if pond_selection.isdigit() and (1 <= int(pond_selection) < len(PONDS)+2):
+        if pond_selection.isdigit() and (1 <= int(pond_selection) < len(PONDS) + 2):
             pond_selection = int(pond_selection)
 
             if pond_selection == 1:
@@ -35,7 +37,7 @@ def select_pond():
                         choosing_location = False
                         break
                     elif pond_options_select == 2:
-                        PONDS[pond_selection-2].display_pond_info()
+                        PONDS[pond_selection - 2].display_pond_info()
                     else:
                         break
                 else:
@@ -43,8 +45,8 @@ def select_pond():
         else:
             print("[!] Invalid Option")
 
-    print("Now fishing at " + str(PONDS[pond_selection-2].name) + "...")
-    return PONDS[pond_selection-2]
+    print("Now fishing at " + str(PONDS[pond_selection - 2].name) + "...")
+    return PONDS[pond_selection - 2]
 
 
 def main_menu(bucket, rod):
@@ -96,7 +98,24 @@ def start_game(save_files):
         return False
 
 
+def title_sequence():
+    lines = [" ______         ______                __", "|   __ \.--.--.|   __ \.-----..-----.|  |",
+             "|    __/|  |  ||      <|  -__||  -__||  |", "|___|   |___  ||___|__||_____||_____||__|",
+             "        |_____|"]
+    for line in lines:
+        print(line)
+        sleep(0.3)
+
+    sleep(0.7)
+    print("Game Created by: Coby and Angelo")
+    sleep(1.5)
+    print("...\x1B[1m\x1B[3mEnjoy!\x1B[0m")
+    sleep(1.5)
+
+
 if __name__ == '__main__':
+
+    title_sequence()
 
     choosing_file = True
     while choosing_file:

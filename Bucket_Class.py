@@ -1,6 +1,7 @@
 # Fishing bucket class
 # Fishing bucket holds fish up to a specified quantity
 
+from general_functions import *
 from Fish_Classes import *
 from file_functions import display_options_from_list
 
@@ -12,19 +13,22 @@ class Fishing_Bucket:
         self.capacity = capacity
 
     def display_contents(self):
-        print("\n--- FISHING BUCKET ---")
+        title_display("fishing bucket")
+        print("")
+
         tab_dist = 30
         for i in range(self.capacity):
             end_line = ""
+            extra_space = " " * (3 - (len(str(i + 1))))
+
             if (i + 1) % 3 == 0:
                 end_line = "\n"
-
-            extra_space = " " * (3 - (len(str(i + 1))))
 
             if i + 1 > len(self.contents):
                 display_string = "[" + str(i + 1) + "]" + extra_space + " {empty}"
             else:
                 display_string = "[" + str(i + 1) + "]" + extra_space + " " + self.contents[i].NAME
+
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
         print("")
 
@@ -104,7 +108,7 @@ class Fishing_Bucket:
             # check if item has capacity to be added
             if len(self.contents) <= self.capacity:
                 self.contents.append(item)
-                print("Added " + item.NAME + " to the bag")
+                print("\t> Added " + item.NAME + " to the bucket")
             else:
                 print("[!] Bucket is full")
         else:

@@ -25,6 +25,9 @@ def do_fish(pond, bucket, rod):
             else:
                 print("[!] Invalid move")
 
+    rod.use_rod()
+    print("")
+
     fish_found = False
     if spot in pond.fish_spots:
         pond.fish_spots.remove(spot)
@@ -32,8 +35,7 @@ def do_fish(pond, bucket, rod):
             if spot == fish.pos:
                 status = fish.catch_status()
                 if status == "caught":
-                    print("\t\x1B[3mYou caught a fish!\x1B[0m")
-                    print("\t\x1B[3mFish Info: {} {} ({} coins)\x1B[0m".format(fish.size, fish.NAME, fish.value))
+                    print("\t> You caught a {} ({} coins)".format(fish.to_string(), fish.value))
                     bucket.add_fish(fish)
                     pond.fish.remove(fish)
                     break
@@ -46,7 +48,5 @@ def do_fish(pond, bucket, rod):
 
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")
-
-    rod.use_rod()
 
     return True
