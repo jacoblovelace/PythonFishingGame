@@ -3,6 +3,7 @@
 from general_functions import *
 from Fish_Classes import *
 from file_functions import display_options_from_list
+from Item import Item
 
 
 class Bag:
@@ -103,7 +104,7 @@ class Bag:
 
     def add_item(self, item):
         # check if item is NOT a child of fish class
-        if not issubclass(type(item), Fish):
+        if issubclass(type(item), Item):
             # check if item has capacity to be added
             if len(self.contents) <= self.capacity:
                 self.contents.append(item)
