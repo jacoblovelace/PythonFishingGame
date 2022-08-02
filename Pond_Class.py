@@ -1,5 +1,6 @@
 # Class for Pond object
 import random
+from general_functions import *
 
 
 class Pond:
@@ -82,7 +83,7 @@ class Pond:
         self.fish_spots = updated_fish_spots
 
     def display_pond(self):
-        print("\n||| " + ("-" * 20) + " " + self.name.upper() + " " + ("-" * 20) + " |||\n")
+        title_display(self.name)
         for r in range(self.y):
             for c in range(self.x):
                 row_letter = chr(ord('A') + r)

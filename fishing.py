@@ -1,6 +1,4 @@
-import random
-from Rod import *
-
+# function to manage fishing input and checks
 
 def do_fish(pond, bucket, rod):
     pond.display_pond()
@@ -10,7 +8,7 @@ def do_fish(pond, bucket, rod):
         if spot_input == 'q':
             confirm_quit = 'y'
             while confirm_quit != 'n':
-                confirm_quit = input("Are you sure you want to leave this fishing location? [y/n]: ")
+                confirm_quit = input(">>> Are you sure you want to leave this fishing location? [y/n]: ")
                 if confirm_quit == 'y':
                     return False
                 elif confirm_quit != 'n':

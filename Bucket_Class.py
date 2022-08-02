@@ -31,7 +31,7 @@ class Fishing_Bucket:
     def select_fish(self):
         while True:
             self.display_contents()
-            num = input("(press 'q' to quit) Enter a slot number: ")
+            num = input(">>> (press 'q' to quit) Enter a slot number: ")
             if num.isdigit() and (0 < int(num) <= self.capacity):
                 num = int(num)
                 if num <= len(self.contents):
@@ -49,7 +49,7 @@ class Fishing_Bucket:
         options = ["Release", "Sell", "Add to Aquarium", "Go Back"]
         display_options_from_list(options)
         while True:
-            selection = input("Select an option: ")
+            selection = input(">>> Select an option: ")
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
@@ -69,7 +69,7 @@ class Fishing_Bucket:
     def release_fish(self, index):
         while True:
             fish = self.contents[index]
-            confirm_release = input("Are you sure you want to release "
+            confirm_release = input(">>> Are you sure you want to release "
                                     + fish.to_string() + " ? (y/n): ")
             if confirm_release == 'y':
                 # remove item at specified index
@@ -84,7 +84,7 @@ class Fishing_Bucket:
     def sell_fish(self, index):
         fish_to_sell = self.contents[index]
         while True:
-            confirm_sell = input("Are you sure you want to sell "
+            confirm_sell = input(">>> Are you sure you want to sell "
                                  + fish_to_sell.to_string() + ", worth " + str(fish_to_sell.value) + " coins? (y/n): ")
             if confirm_sell == 'y':
                 # remove item at specified index

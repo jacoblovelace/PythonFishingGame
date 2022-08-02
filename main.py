@@ -90,8 +90,6 @@ def start_game(save_files):
     my_bucket = Fishing_Bucket(20)
 
     my_rod = Rod("boring rod", 20, 0.2, False)
-    my_rod.display_durability()
-    my_rod.display_info()
 
     # display main activity menu
     if not main_menu(my_bucket, my_rod):

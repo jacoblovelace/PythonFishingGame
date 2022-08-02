@@ -7,7 +7,7 @@ from Save_File_Class import *
 
 def choose_file():
     title_display("file select")
-    print(">>> Enter 1, 2, or 3 to select or create a new save file below: (press 'q' to quit)\n")
+    print(">>> (press 'q' to quit) Enter 1, 2, or 3 to select or create a new save file below: \n")
 
     # load save files and display them
     save_list = load_the_save_files()
