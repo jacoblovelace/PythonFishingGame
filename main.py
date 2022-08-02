@@ -10,14 +10,14 @@ def select_pond():
     choosing_location = True
     pond_selection = 1
     while choosing_location:
-        title_display("select a location")
+        title_display("fishing locations")
 
         print("\n[1] Go Back\n")
         for i in range(len(PONDS)):
             print("[" + str(i + 2) + "] - " + PONDS[i].name)
         print('')
 
-        pond_selection = input("Select a pond: ")
+        pond_selection = input(">>> Select a pond: ")
         if pond_selection.isdigit() and (1 <= int(pond_selection) < len(PONDS)+2):
             pond_selection = int(pond_selection)
 
@@ -28,7 +28,7 @@ def select_pond():
                 options = ['Fish Here', 'Pond Info', 'Go Back']
                 display_options_from_list(options)
 
-                pond_options_select = input("Enter an option: ")
+                pond_options_select = input(">>> Enter an option: ")
                 if pond_options_select.isdigit() and (0 < int(pond_options_select) <= len(options)):
                     pond_options_select = int(pond_options_select)
                     if pond_options_select == 1:
@@ -43,8 +43,6 @@ def select_pond():
         else:
             print("[!] Invalid Option")
 
-        return PONDS[pond_selection-2]
-
     print("Now fishing at " + str(PONDS[pond_selection-2].name) + "...")
     return PONDS[pond_selection-2]
 
@@ -54,12 +52,12 @@ def main_menu(bucket, rod):
     while True:
         title_display("main menu")
         display_options_from_list(options)
-        selection = input("Enter an option: ")
+        selection = input(">>> Enter an option: ")
         if selection.isdigit() and (0 < int(selection) <= len(options)):
-            if rod.cur_durability <= 0:
-                print("[!] Unable to fish without a fishing rod!")
-            else:
-                if selection == '1':
+            if selection == '1':
+                if rod.cur_durability <= 0:
+                    print("[!] Unable to fish without a fishing rod!")
+                else:
                     selected_pond = select_pond()
                     if selected_pond:
                         selected_pond.place_fish()
@@ -71,16 +69,16 @@ def main_menu(bucket, rod):
                             if rod.cur_durability != 0:
                                 selected_pond.move_fish()
 
-                elif selection == '2':
-                    bucket.select_fish()
-                elif selection == '3':
-                    pass
-                elif selection == '4':
-                    pass
-                elif selection == '5':
-                    pass
-                else:
-                    return False
+            elif selection == '2':
+                bucket.select_fish()
+            elif selection == '3':
+                pass
+            elif selection == '4':
+                pass
+            elif selection == '5':
+                pass
+            else:
+                return False
         else:
             print("[!] Invalid option")
 
@@ -91,7 +89,7 @@ def start_game(save_files):
 
     my_bucket = Fishing_Bucket(20)
 
-    my_rod = Rod("boring rod", 10, 0.2, False)
+    my_rod = Rod("boring rod", 20, 0.2, False)
     my_rod.display_durability()
     my_rod.display_info()
 

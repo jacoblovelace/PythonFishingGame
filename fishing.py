@@ -33,7 +33,6 @@ def do_fish(pond, bucket, rod):
         for fish in pond.fish:
             if spot == fish.pos:
                 status = fish.catch_status()
-                print(status)
                 if status == "caught":
                     print("\t\x1B[3mYou caught a fish!\x1B[0m")
                     print("\t\x1B[3mFish Info: {} {} ({} coins)\x1B[0m".format(fish.size, fish.NAME, fish.value))

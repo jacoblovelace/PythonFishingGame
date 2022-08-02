@@ -22,13 +22,15 @@ class Fish:
 
     def catch_status(self):
         statuses = ["caught", "fled", "broke"]
-        if choice([True, False], 1, [self.cactchability, 1 - self.cactchability])[0]:
-            if choice([True, False], 1, [1 - self.breakability, self.breakability])[0]:
+
+        if choice([True, False], p=[self.cactchability, 1.0 - self.cactchability]):
+            if choice([True, False], p=[1.0 - self.breakability, self.breakability]):
                 return statuses[0]
             else:
                 print("\t\x1B[3mThe fish broke your rod!\x1B[0m")
                 return statuses[2]
-        print("\t\x1B[3mThe fish got away!\x1B[0m")
+        else:
+            print("\t\x1B[3mThe fish got away!\x1B[0m")
         return statuses[1]
 
 

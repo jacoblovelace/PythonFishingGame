@@ -92,7 +92,7 @@ class Pond:
         print('')
 
     def display_pond_info(self):
-        print("\nPond Info:")
+        print("\n" + self.name + ":")
         print("\tSize: " + str(self.x) + " x " + str(self.y))
         print("\tFish Density: 1/" + str(self.num_fish_range[0]) + " to 1/" + str(self.num_fish_range[1]))
         print("\tDescription: " + self.description)
