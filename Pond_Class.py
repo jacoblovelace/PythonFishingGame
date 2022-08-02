@@ -84,6 +84,7 @@ class Pond:
 
     def display_pond(self):
         title_display(self.name)
+        print("")
         for r in range(self.y):
             for c in range(self.x):
                 row_letter = chr(ord('A') + r)

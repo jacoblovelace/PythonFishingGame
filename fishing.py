@@ -1,5 +1,8 @@
 # function to manage fishing input and checks
 
+from general_functions import *
+
+
 def do_fish(pond, bucket, rod):
     pond.display_pond()
 
@@ -25,7 +28,7 @@ def do_fish(pond, bucket, rod):
             else:
                 print("[!] Invalid move")
 
-    rod.use_rod()
+    rod.decrease_duraility()
     print("")
 
     fish_found = False

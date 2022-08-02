@@ -1,8 +1,11 @@
 # Rod class
+from Item import Item
 
 
-class Rod:
+class Rod(Item):
+
     def __init__(self, name, max_durability, resistance, deep_sea):
+        super().__init__()
         self.name = name
         self.max_durability = max_durability
         self.cur_durability = max_durability
@@ -32,7 +35,12 @@ class Rod:
         print("[" + (self.cur_durability * "#") + ((self.max_durability - self.cur_durability) * "_")
                   + "] (" + str(self.cur_durability) + "/" + str(self.max_durability) + ")")
 
-    def use_rod(self):
+    # method that overrides abstract "use" method in item class
+    def use(self):
+        # this method equips a fishing rod
+        print("equipping rod!")
+
+    def decrease_duraility(self):
         self.cur_durability -= 1
         self.display_durability()
         if self.cur_durability <= 0:

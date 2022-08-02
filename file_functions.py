@@ -67,7 +67,7 @@ def create_new_file(file, save_list):
 
 def file_options(file, save_list):
 
-    print("Select an action below:")
+    print(">>> Select an action below:")
     file_actions = ["Play", "Delete", "Go Back"]
     display_options_from_list(file_actions)
 
@@ -75,11 +75,11 @@ def file_options(file, save_list):
         action_select_num = input(">>> Enter an option number: ")
         if (action_select_num.isdigit()) and (1 <= int(action_select_num) <= 3):
             if action_select_num == '1':
-                print("Now playing as save file '" + file.name + "'")
+                print("> Now playing as save file '" + file.name + "'")
                 return True
             elif action_select_num == '2':
                 if prompt_delete_file():
-                    print("Deleting save file '" + str(file.name) + "'")
+                    print("> Deleting save file '" + str(file.name) + "'")
                     delete_file(save_list, file)
                 return False
             else:
@@ -93,7 +93,7 @@ def prompt_quit():
     while confirm_quit != 'n':
         confirm_quit = input(">>> Are you sure you want to quit? [y/n]: ")
         if confirm_quit == 'y':
-            print("See you soon...")
+            print("\x1B[1m\x1B[3mSee you soon...\x1B[0m")
             sys.exit()
         elif confirm_quit != 'n':
             print("[!] invalid option\n")
