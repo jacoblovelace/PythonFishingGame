@@ -4,22 +4,28 @@
 class Rod:
     def __init__(self, name, max_durability, resistance, deep_sea):
         self.name = name
-        self.max_durability, self.cur_durability = max_durability
+        self.max_durability = max_durability
+        self.cur_durability = max_durability
         self.resistance = resistance
         self.deep_sea = deep_sea
+        self.bait = None
+        self.exists = True
+
+    def detach_bait(self):
+        # Bag.add(self.bait)
         self.bait = None
 
     def attach_bait(self, bait):
         # if bait on the rod already, store it in the bag
         if self.bait:
-            # Bag.add(bait)
-            pass
+            self.detach_bait()
         # add bait to rod
         self.bait = bait
 
     def break_rod(self):
         self.cur_durability = 0
         print("[!] Your fishing rod broke!")
+        self.exists = False
         del self
 
     def display_durability(self):

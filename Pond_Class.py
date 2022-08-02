@@ -35,6 +35,52 @@ class Pond:
         for fish in self.fish:
             self.board[fish.pos] = fish
 
+    def move_fish(self):
+        list_of_options = []
+        updated_fish_spots = []
+
+        # calculate and make list of move options for each fish
+        for fish_spot in self.fish_spots:
+            # initialize list with fish object as first element
+            options = [self.board[fish_spot]]
+            # check left side
+            if (fish_spot % self.x) != 0:
+                options.append(fish_spot - 1)
+            # check right side
+            if ((fish_spot + 1) % self.x) != 0:
+                options.append(fish_spot + 1)
+            # check top
+            if fish_spot + 1 > self.x:
+                options.append(fish_spot - self.x)
+            # check bottom
+            if fish_spot < (self.x * (self.y - 1)):
+                options.append(fish_spot + self.x)
+            # always add same spot to options
+            options.append(fish_spot)
+            list_of_options.append(options)
+
+        # sort list of options shortest to longest to increase chances of move availability
+        list_of_options.sort(key=len)
+
+        for options in list_of_options:
+            # choose a random spot from list of options
+            cur_fish = options[0]
+            options = options[1:]
+            choice = random.choice(options)
+            # if spot already in the new fish spots, remove it and choose again
+            while choice in updated_fish_spots and len(options) > 0:
+                options.remove(choice)
+                if len(options) > 0:
+                    choice = random.choice(options)
+            if len(options) > 0:
+                updated_fish_spots.append(choice)
+                cur_fish.pos = choice
+
+        self.board = [i for i in range(self.x * self.y)]
+        for fish in self.fish:
+            self.board[fish.pos] = fish
+        self.fish_spots = updated_fish_spots
+
     def display_pond(self):
         print("\n||| " + ("-" * 20) + " " + self.name.upper() + " " + ("-" * 20) + " |||\n")
         for r in range(self.y):

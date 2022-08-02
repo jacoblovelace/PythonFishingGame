@@ -3,6 +3,7 @@ from fishing import *
 from ponds import *
 from Bucket_Class import Fishing_Bucket
 from general_functions import *
+from Rod import *
 
 
 def select_pond():
@@ -17,8 +18,11 @@ def select_pond():
         print('')
 
         pond_selection = input("Select a pond: ")
-        if pond_selection.isdigit() and (0 < int(pond_selection) < len(PONDS)+2):
+        if pond_selection.isdigit() and (1 <= int(pond_selection) < len(PONDS)+2):
             pond_selection = int(pond_selection)
+
+            if pond_selection == 1:
+                return None
 
             while True:
                 options = ['Fish Here', 'Pond Info', 'Go Back']
@@ -39,49 +43,60 @@ def select_pond():
         else:
             print("[!] Invalid Option")
 
+        return PONDS[pond_selection-2]
+
     print("Now fishing at " + str(PONDS[pond_selection-2].name) + "...")
     return PONDS[pond_selection-2]
 
 
-def main_menu(bucket):
-    title_display("main menu")
+def main_menu(bucket, rod):
     options = ["Go Fishing", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
     while True:
+        title_display("main menu")
         display_options_from_list(options)
         selection = input("Enter an option: ")
         if selection.isdigit() and (0 < int(selection) <= len(options)):
-            if selection == '1':
-                selected_pond = select_pond()
-                selected_pond.place_fish()
-
-                # fish until either durability runs out or no more fish left in pond
-                durability = int(input("Set durability value: "))
-                max_durability = durability
-                while durability > 0 and len(selected_pond.fish_spots) > 0:
-                    durability = do_fish(selected_pond, max_durability, durability, bucket)
-                    if durability != 0:
-                        move_fish(selected_pond)
-
-            elif selection == '2':
-                bucket.select_fish()
-            elif selection == '3':
-                pass
-            elif selection == '4':
-                pass
-            elif selection == '5':
-                pass
+            if rod.cur_durability <= 0:
+                print("[!] Unable to fish without a fishing rod!")
             else:
-                return False
+                if selection == '1':
+                    selected_pond = select_pond()
+                    if selected_pond:
+                        selected_pond.place_fish()
+
+                        # fish until either durability runs out or no more fish left in pond
+                        while rod.cur_durability > 0 and len(selected_pond.fish_spots) > 0:
+                            if not do_fish(selected_pond, bucket, rod):
+                                break
+                            if rod.cur_durability != 0:
+                                selected_pond.move_fish()
+
+                elif selection == '2':
+                    bucket.select_fish()
+                elif selection == '3':
+                    pass
+                elif selection == '4':
+                    pass
+                elif selection == '5':
+                    pass
+                else:
+                    return False
+        else:
+            print("[!] Invalid option")
 
 
-def start_game(file, save_files):
+def start_game(save_files):
     # autosave
     save_the_save_files(save_files)
 
     my_bucket = Fishing_Bucket(20)
 
+    my_rod = Rod("boring rod", 10, 0.2, False)
+    my_rod.display_durability()
+    my_rod.display_info()
+
     # display main activity menu
-    if not main_menu(my_bucket):
+    if not main_menu(my_bucket, my_rod):
         return False
 
 
@@ -103,5 +118,5 @@ if __name__ == '__main__':
 
                 game_running = True
                 while game_running:
-                    if not start_game(game_file, save_file_list):
+                    if not start_game(save_file_list):
                         game_running = False

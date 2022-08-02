@@ -46,7 +46,6 @@ class Koi(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.9
 
 
 class Catfish(Fish):
@@ -55,7 +54,7 @@ class Catfish(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.cactchability = 0.7
+        self.cactchability = 0.8
 
 
 class Trout(Fish):
