@@ -7,6 +7,7 @@ from Bucket_Class import Fishing_Bucket
 from Bag import Bag
 from general_functions import *
 from Rod import *
+from Shop import Shop
 
 
 def select_pond():
@@ -50,14 +51,16 @@ def select_pond():
     return PONDS[pond_selection - 2]
 
 
-def main_menu(bucket, bag):
-    options = ["Go Fishing", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
+def main_menu(shop, bucket, bag):
+    options = ["Go Fishing", "Shop", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
     while True:
         title_display("main menu")
         display_options_from_list(options)
         selection = input(">>> Enter an option: ")
         if selection.isdigit() and (0 < int(selection) <= len(options)):
-            if selection == '1':
+            selection = int(selection)
+
+            if selection == 1:
 
                 selected_pond = select_pond()
                 if selected_pond:
@@ -86,14 +89,15 @@ def main_menu(bucket, bag):
                     # if the rod did not break, add it to the bag
                     if equipped_rod.exists:
                         bag.add_item(equipped_rod)
-
-            elif selection == '2':
+            elif selection == 2:
+                shop.main_menu()
+            elif selection == 3:
                 bucket.select_fish()
-            elif selection == '3':
+            elif selection == 4:
                 bag.select_item(False, None)
-            elif selection == '4':
+            elif selection == 5:
                 pass
-            elif selection == '5':
+            elif selection == 6:
                 pass
             else:
                 return False
@@ -105,17 +109,20 @@ def start_game(save_files):
     # autosave
     save_the_save_files(save_files)
 
+    # set up shop
+    shop = Shop()
+
     # set up storage and items
     my_bucket = Fishing_Bucket(20)
     my_bag = Bag(20)
 
-    rods = [Rod("Cheap Rod", 5, 0.0, False), Rod("Beginner Rod", 10, 0.0, False), Rod("Sturdy Rod", 15, 0.5, False)]
+    rods = [Rod("Cheap Rod", 5, 0.0, False), Rod("God Rod", 50, 1.0, True)]
 
     for rod in rods:
         my_bag.add_item(rod)
 
     # display main activity menu
-    if not main_menu(my_bucket, my_bag):
+    if not main_menu(shop, my_bucket, my_bag):
         return False
 
 

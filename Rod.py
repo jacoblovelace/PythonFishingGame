@@ -1,8 +1,9 @@
 # Rod class
+from abc import ABC
 from Item import Item
 
 
-class Rod(Item):
+class Rod(Item, ABC):
 
     def __init__(self, name, max_durability, resistance, deep_sea):
         super().__init__()
@@ -45,12 +46,19 @@ class Rod(Item):
         print(self.to_string() + " | Bait: " + bait_display + " | Durability: ", end="")
         self.display_durability()
 
-    # method that overrides abstract "use" method in item class
     def use(self):
-        # this method equips a fishing rod
         pass
 
     def display_info(self):
+        print(self.name)
+        print("\t" + str(self.resistance) + " resistance")
+        print("\tDurability: " + str(self.cur_durability) + "/" + str(self.max_durability))
+        if self.deep_sea:
+            print("\tDeep sea: Yes")
+        else:
+            print("\tDeep sea: No")
+
+    def display_info_shop(self):
         print(self.name)
         print("\t" + str(self.resistance) + " resistance")
         print("\tDurability: " + str(self.cur_durability) + "/" + str(self.max_durability))

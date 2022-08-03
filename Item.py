@@ -24,3 +24,7 @@ class Item(metaclass=ABCMeta):
     def display_info(self):
         pass
 
+    @abstractmethod
+    def display_info_shop(self):
+        pass
+
