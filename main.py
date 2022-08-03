@@ -90,7 +90,7 @@ def main_menu(shop, bucket, bag):
                     if equipped_rod.exists:
                         bag.add_item(equipped_rod)
             elif selection == 2:
-                shop.main_menu()
+                shop.main_menu(bag)
             elif selection == 3:
                 bucket.select_fish()
             elif selection == 4:
@@ -116,7 +116,7 @@ def start_game(save_files):
     my_bucket = Fishing_Bucket(20)
     my_bag = Bag(20)
 
-    rods = [Rod("Cheap Rod", 5, 0.0, False), Rod("God Rod", 50, 1.0, True)]
+    rods = [Rod("Cheap Rod", 10, 5, 0.0, False), Rod("God Rod", 5000, 100, 2.0, True)]
 
     for rod in rods:
         my_bag.add_item(rod)

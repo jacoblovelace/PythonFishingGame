@@ -5,9 +5,10 @@ from Item import Item
 
 class Rod(Item, ABC):
 
-    def __init__(self, name, max_durability, resistance, deep_sea):
+    def __init__(self, name, value, max_durability, resistance, deep_sea):
         super().__init__()
         self.name = name
+        self.value = value
         self.max_durability = max_durability
         self.cur_durability = max_durability
         self.resistance = resistance
@@ -51,17 +52,19 @@ class Rod(Item, ABC):
 
     def display_info(self):
         print(self.name)
-        print("\t" + str(self.resistance) + " resistance")
         print("\tDurability: " + str(self.cur_durability) + "/" + str(self.max_durability))
+        print("\tResistance: " + str(self.resistance))
         if self.deep_sea:
             print("\tDeep sea: Yes")
         else:
             print("\tDeep sea: No")
 
     def display_info_shop(self):
+        print("")
         print(self.name)
-        print("\t" + str(self.resistance) + " resistance")
-        print("\tDurability: " + str(self.cur_durability) + "/" + str(self.max_durability))
+        print("\tCost: " + str(self.value) + " coins")
+        print("\tDurability: " + str(self.max_durability))
+        print("\tResistance: " + str(self.resistance))
         if self.deep_sea:
             print("\tDeep sea: Yes")
         else:

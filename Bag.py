@@ -98,9 +98,11 @@ class Bag:
             # check if item has capacity to be added
             if len(self.contents) <= self.capacity:
                 self.contents.append(item)
-                print("\t> Added " + item.to_string() + " to the bag")
+                print("> Added " + item.to_string() + " to the bag")
+                return True
             else:
                 print("[!] Bag is full")
+                return False
         else:
             print("(i) Fish can only be stored in the fishing bucket")
 
