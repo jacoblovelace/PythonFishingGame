@@ -78,7 +78,9 @@ def main_menu(bucket, bag):
                     while equipped_rod.cur_durability > 0 and len(selected_pond.fish_spots) > 0:
 
                         if not do_fish(selected_pond, bucket, equipped_rod, bag):
-                            bag.add_item(equipped_rod)
+                            # add rod back to bag unless rod is broken
+                            if equipped_rod.exists:
+                                bag.add_item(equipped_rod)
                             break
                         if equipped_rod.cur_durability != 0:
                             selected_pond.move_fish()

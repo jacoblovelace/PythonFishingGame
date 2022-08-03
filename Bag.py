@@ -41,12 +41,8 @@ class Bag:
                 if num <= len(self.contents):
                     item = self.contents[num - 1]
                     if type_requirement is None or issubclass(type_requirement, type(item)):
-
-                        if is_fishing:
-                            if self.item_options_fishing(item):
-                                return item
-                        else:
-                            self.item_options_not_fishing(item)
+                        self.item_options(item, is_fishing)
+                        return item
                     else:
                         print("[!] Must select an item of type " + str(type_requirement))
                 else:
@@ -56,33 +52,25 @@ class Bag:
             else:
                 print("[!] Invalid option")
 
-    def item_options_fishing(self, item):
-        print("> Selected: " + item.to_string())
-        options = ["Use", "Go Back"]
-        display_options_from_list(options)
-        while True:
-            selection = input(">>> Select an option: ")
-            if selection.isdigit() and (0 < int(selection) <= len(options)):
-                selection = int(selection)
-                if selection == 1:
-                    self.use_item(item)
-                    return True
-                else:
-                    break
-            else:
-                print("[!] Invalid option")
+    def item_options(self, item, is_fishing):
+        options = ["Sell", "Info", "Go Back"]
+        if is_fishing:
+            options[0] = "Use"
 
-    def item_options_not_fishing(self, item):
-        print("> Selected: " + item.to_string())
-        options = ["Sell", "Go Back"]
-        display_options_from_list(options)
         while True:
+            print("> Selected: " + item.to_string())
+            display_options_from_list(options)
             selection = input(">>> Select an option: ")
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    self.sell_item(item)
-                    return
+                    if is_fishing:
+                        self.use_item(item)
+                        return True
+                    else:
+                        self.sell_item(item)
+                elif selection == 2:
+                    item.display_info()
                 else:
                     break
             else:
