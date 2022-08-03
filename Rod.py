@@ -37,8 +37,6 @@ class Rod(Item):
 
     def decrease_duraility(self):
         self.cur_durability -= 1
-        if self.cur_durability <= 0:
-            self.break_rod()
 
     def display_stats(self):
         bait_display = "{None}"

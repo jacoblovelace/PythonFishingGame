@@ -7,6 +7,7 @@ def do_fish(pond, bucket, rod, bag):
     rod.display_stats()
     pond.display_pond()
 
+    # get input
     while True:
         spot_input = input(">>> enter spot (press 'q' to leave pond, press 'b' to view bag): ")
         if spot_input == 'q':
@@ -31,9 +32,10 @@ def do_fish(pond, bucket, rod, bag):
             else:
                 print("[!] Invalid move")
 
+    # update durability
     rod.decrease_duraility()
-    print("")
 
+    # get and display catch result
     fish_found = False
     if spot in pond.fish_spots:
         pond.fish_spots.remove(spot)
@@ -48,11 +50,16 @@ def do_fish(pond, bucket, rod, bag):
                 elif status == "fled":
                     break
                 else:
-                    rod.cur_durability = 0
+                    print("> The fish broke your rod!")
+                    rod.break_rod()
                     return False
         fish_found = True
-
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")
 
+    # return False if rod breaks
+    if rod.cur_durability <= 0:
+        rod.break_rod()
+        return False
+    # else return true
     return True

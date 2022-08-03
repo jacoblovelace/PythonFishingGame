@@ -74,16 +74,18 @@ def main_menu(bucket, bag):
 
                     selected_pond.place_fish()
 
-                    # fish until either durability runs out or no more fish left in pond
-                    while equipped_rod.cur_durability > 0 and len(selected_pond.fish_spots) > 0:
+                    # fish until no more fish left in pond
+                    while len(selected_pond.fish_spots) > 0:
 
+                        # if rod breaks, stop fishing
                         if not do_fish(selected_pond, bucket, equipped_rod, bag):
-                            # add rod back to bag unless rod is broken
-                            if equipped_rod.exists:
-                                bag.add_item(equipped_rod)
                             break
-                        if equipped_rod.cur_durability != 0:
-                            selected_pond.move_fish()
+                        # if still fishing, move the fish
+                        selected_pond.move_fish()
+
+                    # if the rod did not break, add it to the bag
+                    if equipped_rod.exists:
+                        bag.add_item(equipped_rod)
 
             elif selection == '2':
                 bucket.select_fish()
