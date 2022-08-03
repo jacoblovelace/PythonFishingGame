@@ -1,5 +1,5 @@
 # Bag class to hold items
-
+from Rod import Rod
 from general_functions import *
 from Fish_Classes import *
 from file_functions import display_options_from_list
@@ -32,27 +32,31 @@ class Bag:
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
         print("")
 
-    def select_item(self, is_fishing):
+    def select_item(self, is_fishing, type_requirement):
         while True:
             self.display_contents()
             num = input(">>> (press 'q' to quit) Enter a slot number: ")
             if num.isdigit() and (0 < int(num) <= self.capacity):
                 num = int(num)
                 if num <= len(self.contents):
-                    if is_fishing:
-                        if self.item_options_fishing(num):
-                            break
+                    item = self.contents[num - 1]
+                    if type_requirement is None or issubclass(type_requirement, type(item)):
+
+                        if is_fishing:
+                            if self.item_options_fishing(item):
+                                return item
+                        else:
+                            self.item_options_not_fishing(item)
                     else:
-                        self.item_options_not_fishing(num)
+                        print("[!] Must select an item of type " + str(type_requirement))
                 else:
                     print("[!] Slot is empty")
             elif num == 'q':
-                break
+                return None
             else:
                 print("[!] Invalid option")
 
-    def item_options_fishing(self, index):
-        item = self.contents[index - 1]
+    def item_options_fishing(self, item):
         print("> Selected: " + item.to_string())
         options = ["Use", "Go Back"]
         display_options_from_list(options)
@@ -61,15 +65,14 @@ class Bag:
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    self.use_item(index - 1)
+                    self.use_item(item)
                     return True
                 else:
                     break
             else:
                 print("[!] Invalid option")
 
-    def item_options_not_fishing(self, index):
-        item = self.contents[index-1]
+    def item_options_not_fishing(self, item):
         print("> Selected: " + item.to_string())
         options = ["Sell", "Go Back"]
         display_options_from_list(options)
@@ -78,24 +81,23 @@ class Bag:
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    self.sell_item(index - 1)
+                    self.sell_item(item)
                     return
                 else:
                     break
             else:
                 print("[!] Invalid option")
 
-    def sell_item(self, index):
-        item_to_sell = self.contents[index]
+    def sell_item(self, item):
         while True:
             confirm_sell = input(">>> Are you sure you want to sell "
-                                 + item_to_sell.to_string() + " for " + str(item_to_sell.value) + " coins? (y/n): ")
+                                 + item.to_string() + " for " + str(item.value) + " coins? (y/n): ")
             if confirm_sell == 'y':
                 # remove item at specified index
-                sold_item = self.contents.pop(index)
+                self.contents.remove(item)
                 # give coins of item to player
 
-                print("Sold " + sold_item.to_string() + " for " + str(sold_item.value) + " coins!")
+                print("Sold " + item.to_string() + " for " + str(item.value) + " coins!")
                 break
             elif confirm_sell == 'n':
                 break
@@ -114,8 +116,7 @@ class Bag:
         else:
             print("(i) Fish can only be stored in the fishing bucket")
 
-    def use_item(self, index):
-        item = self.contents[index - 1]
+    def use_item(self, item):
         print("> Now using " + item.to_string())
         item.use()
-        self.contents.pop(index)
+        self.contents.remove(item)

@@ -4,6 +4,7 @@ from general_functions import *
 
 
 def do_fish(pond, bucket, rod, bag):
+    rod.display_stats()
     pond.display_pond()
 
     while True:
@@ -17,7 +18,7 @@ def do_fish(pond, bucket, rod, bag):
                 elif confirm_quit != 'n':
                     print("[!] invalid option\n")
         elif spot_input == 'b':
-            bag.select_item(True)
+            bag.select_item(True, None)
         else:
             if spot_input[0].isalpha() and spot_input[1:].isdigit():
                 if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):

@@ -5,6 +5,7 @@ from abc import ABCMeta, abstractmethod
 
 class Item(metaclass=ABCMeta):
     name = ""
+    value = 0
 
     def __init__(self):
         pass
@@ -17,5 +18,9 @@ class Item(metaclass=ABCMeta):
 
     @abstractmethod
     def use(self):
+        pass
+
+    @abstractmethod
+    def display_info(self):
         pass
 

@@ -50,7 +50,7 @@ def select_pond():
     return PONDS[pond_selection - 2]
 
 
-def main_menu(bucket, rod, my_bag):
+def main_menu(bucket, bag):
     options = ["Go Fishing", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
     while True:
         title_display("main menu")
@@ -58,25 +58,35 @@ def main_menu(bucket, rod, my_bag):
         selection = input(">>> Enter an option: ")
         if selection.isdigit() and (0 < int(selection) <= len(options)):
             if selection == '1':
-                if rod.cur_durability <= 0:
-                    print("[!] Unable to fish without a fishing rod!")
-                else:
-                    selected_pond = select_pond()
-                    if selected_pond:
-                        selected_pond.place_fish()
 
-                        # fish until either durability runs out or no more fish left in pond
-                        while rod.cur_durability > 0 and len(selected_pond.fish_spots) > 0:
+                selected_pond = select_pond()
+                if selected_pond:
 
-                            if not do_fish(selected_pond, bucket, rod, my_bag):
-                                break
-                            if rod.cur_durability != 0:
-                                selected_pond.move_fish()
+                    # require rod
+                    while True:
+                        print("(i) Select a rod to equip")
+                        equipped_rod = bag.select_item(True, Rod)
+                        if equipped_rod is not None:
+                            break
+
+                    # if equipped_rod.cur_durability <= 0:
+                    #     print("[!] Unable to fish without a fishing rod!")
+
+                    selected_pond.place_fish()
+
+                    # fish until either durability runs out or no more fish left in pond
+                    while equipped_rod.cur_durability > 0 and len(selected_pond.fish_spots) > 0:
+
+                        if not do_fish(selected_pond, bucket, equipped_rod, bag):
+                            bag.add_item(equipped_rod)
+                            break
+                        if equipped_rod.cur_durability != 0:
+                            selected_pond.move_fish()
 
             elif selection == '2':
                 bucket.select_fish()
             elif selection == '3':
-                my_bag.select_item()
+                bag.select_item(False, None)
             elif selection == '4':
                 pass
             elif selection == '5':
@@ -91,15 +101,17 @@ def start_game(save_files):
     # autosave
     save_the_save_files(save_files)
 
+    # set up storage and items
     my_bucket = Fishing_Bucket(20)
-
-    my_rod = Rod("boring rod", 20, 0.2, False)
-
     my_bag = Bag(20)
-    my_bag.add_item(my_rod)
+
+    rods = [Rod("Cheap Rod", 5, 0.0, False), Rod("Beginner Rod", 10, 0.0, False), Rod("Sturdy Rod", 15, 0.5, False)]
+
+    for rod in rods:
+        my_bag.add_item(rod)
 
     # display main activity menu
-    if not main_menu(my_bucket, my_rod, my_bag):
+    if not main_menu(my_bucket, my_bag):
         return False
 
 
