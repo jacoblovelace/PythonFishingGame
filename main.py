@@ -123,7 +123,7 @@ def start_game(save_files):
     shop = Shop()
 
     # set up storage and items
-    my_bucket = Fishing_Bucket(1)
+    my_bucket = Fishing_Bucket(10)
     my_bag = Bag(5)
 
     rods = [Rod("Cheap Rod", 10, 5, 0.0, False), Rod("God Rod", 5000, 100, 2.0, True)]

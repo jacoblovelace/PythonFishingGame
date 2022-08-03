@@ -106,7 +106,7 @@ class Fishing_Bucket:
         # check if item is a child of fish class
         if issubclass(type(item), Fish):
             # check if item has capacity to be added
-            if len(self.contents) <= self.capacity:
+            if len(self.contents) < self.capacity:
                 self.contents.append(item)
                 print("\t> Added " + item.NAME + " to the bucket")
             else:
