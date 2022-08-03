@@ -35,7 +35,7 @@ def select_pond():
         print("\n[0] Go Back\n")
 
         pond_selection = input(">>> Select a pond: ")
-        if pond_selection.isdigit() and (0 <= int(pond_selection) < len(PONDS) + 1):
+        if pond_selection.isdigit() and (0 <= int(pond_selection) <= len(PONDS) + 1):
             pond_selection = int(pond_selection)
 
             if pond_selection == 0:
@@ -70,7 +70,7 @@ def main_menu(shop, bucket, bag):
         title_display("main menu")
         display_options_from_list(options)
         selection = input(">>> Enter an option: ")
-        if selection.isdigit() and (0 < int(selection) <= len(options)):
+        if selection.isdigit() and (0 < int(selection) < len(options)):
             selection = int(selection)
 
             if selection == 1:

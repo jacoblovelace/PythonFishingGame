@@ -3,6 +3,23 @@
 from general_functions import *
 
 
+def fish_caught_options(bucket, fish):
+    options = ["Add to Bucket", "Release"]
+    while True:
+        display_options_from_list(options)
+        selection = input(">>> Add to bucket or relase: ")
+        if selection.isdigit() and (0 < int(selection) <= len(options)):
+            selection = int(selection)
+            if selection == 1:
+                bucket.add_fish(fish)
+                break
+            else:
+                print("Released " + fish.to_string())
+                break
+        else:
+            print("[!] Invalid option")
+
+
 def do_fish(pond, bucket, rod, bag):
     rod.display_stats()
     pond.display_pond()
@@ -44,7 +61,8 @@ def do_fish(pond, bucket, rod, bag):
                 status = fish.catch_status(rod)
                 if status == "caught":
                     print("\t> You caught a {} ({} coins)".format(fish.to_string(), fish.value))
-                    bucket.add_fish(fish)
+
+                    fish_caught_options(bucket, fish)
                     pond.fish.remove(fish)
                     break
                 elif status == "fled":
