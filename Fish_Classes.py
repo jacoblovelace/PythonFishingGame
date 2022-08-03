@@ -20,11 +20,16 @@ class Fish:
     def to_string(self):
         return "\x1B[3m" + self.size + " " + self.NAME + "\x1B[0m"
 
-    def catch_status(self):
+    def catch_status(self, rod):
         statuses = ["caught", "fled", "broke"]
 
         if choice([True, False], p=[self.cactchability, 1.0 - self.cactchability]):
-            if choice([True, False], p=[1.0 - self.breakability, self.breakability]):
+            # calculate new fish breakability given rod resistance
+            breakability = self.breakability - rod.resistance
+            if breakability < 0.0:
+                breakability = 0.0
+
+            if choice([True, False], p=[1.0 - breakability, breakability]):
                 return statuses[0]
             else:
                 print("\t\x1B[3mThe fish broke your rod!\x1B[0m")

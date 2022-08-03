@@ -41,7 +41,7 @@ def do_fish(pond, bucket, rod, bag):
         pond.fish_spots.remove(spot)
         for fish in pond.fish:
             if spot == fish.pos:
-                status = fish.catch_status()
+                status = fish.catch_status(rod)
                 if status == "caught":
                     print("\t> You caught a {} ({} coins)".format(fish.to_string(), fish.value))
                     bucket.add_fish(fish)
