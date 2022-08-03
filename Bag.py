@@ -30,9 +30,9 @@ class Bag:
                 display_string = "[" + str(i + 1) + "]" + extra_space + " " + self.contents[i].to_string_plain()
 
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
-        print("")
+        print("\n")
 
-    def select_item(self, is_fishing, type_requirement):
+    def select_item(self, is_fishing, type_requirement, is_deep_sea):
         while True:
             self.display_contents()
             num = input(">>> (press 'q' to quit) Enter a slot number: ")
@@ -41,8 +41,8 @@ class Bag:
                 if num <= len(self.contents):
                     item = self.contents[num - 1]
                     if type_requirement is None or issubclass(type_requirement, type(item)):
-                        self.item_options(item, is_fishing)
-                        return item
+                        if self.item_options(item, is_fishing, is_deep_sea):
+                            return item
                     else:
                         print("[!] Must select an item of type " + str(type_requirement))
                 else:
@@ -52,7 +52,7 @@ class Bag:
             else:
                 print("[!] Invalid option")
 
-    def item_options(self, item, is_fishing):
+    def item_options(self, item, is_fishing, is_deep_sea):
         options = ["Sell", "Info", "Go Back"]
         if is_fishing:
             options[0] = "Use"
@@ -64,11 +64,14 @@ class Bag:
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    if is_fishing:
-                        self.use_item(item)
-                        return True
+                    if is_deep_sea and not item.deep_sea:
+                        print("[!] A deep sea fishing rod is required to fish at this location!")
                     else:
-                        self.sell_item(item)
+                        if is_fishing:
+                            self.use_item(item)
+                            return True
+                        else:
+                            self.sell_item(item)
                 elif selection == 2:
                     item.display_info()
                 else:

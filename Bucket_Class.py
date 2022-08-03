@@ -30,7 +30,7 @@ class Fishing_Bucket:
                 display_string = "[" + str(i + 1) + "]" + extra_space + " " + self.contents[i].NAME
 
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
-        print("")
+        print("\n")
 
     def select_fish(self):
         while True:

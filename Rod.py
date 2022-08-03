@@ -34,8 +34,7 @@ class Rod(Item, ABC):
         del self
 
     def display_durability(self):
-        print("[" + (self.cur_durability * "#") + ((self.max_durability - self.cur_durability) * "_")
-                  + "] (" + str(self.cur_durability) + "/" + str(self.max_durability) + ")")
+        print("(" + str(self.cur_durability) + "/" + str(self.max_durability) + ")")
 
     def decrease_duraility(self):
         self.cur_durability -= 1

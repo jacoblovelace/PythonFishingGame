@@ -13,7 +13,7 @@ def do_fish(pond, bucket, rod, bag):
         if spot_input == 'q':
             confirm_quit = 'y'
             while confirm_quit != 'n':
-                confirm_quit = input(">>> Are you sure you want to leave this fishing location? [y/n]: ")
+                confirm_quit = input(">>> Are you sure you want to leave this fishing location? (y/n): ")
                 if confirm_quit == 'y':
                     return False
                 elif confirm_quit != 'n':
@@ -21,7 +21,7 @@ def do_fish(pond, bucket, rod, bag):
         elif spot_input == 'b':
             bag.select_item(True, None)
         else:
-            if spot_input[0].isalpha() and spot_input[1:].isdigit():
+            if spot_input != "" and spot_input[0].isalpha() and spot_input[1:].isdigit():
                 if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):
                     r = ord(spot_input[0].upper()) - 65
                     c = int(spot_input[1]) - 1

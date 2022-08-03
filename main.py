@@ -10,22 +10,35 @@ from Rod import *
 from Shop import Shop
 
 
+def display_ponds():
+    print("")
+    tab_dist = 40
+    for i in range(len(PONDS)):
+        end_line = ""
+        extra_space = " " * (3 - (len(str(i + 1))))
+
+        if (i + 1) % 2 == 0:
+            end_line = "\n"
+
+        display_string = "[" + str(i + 1) + "] " + extra_space + "- " + PONDS[i].name
+
+        print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
+
+
 def select_pond():
     choosing_location = True
     pond_selection = 1
     while choosing_location:
         title_display("fishing locations")
 
-        print("\n[1] Go Back\n")
-        for i in range(len(PONDS)):
-            print("[" + str(i + 2) + "] - " + PONDS[i].name)
-        print('')
+        display_ponds()
+        print("\n[0] Go Back\n")
 
         pond_selection = input(">>> Select a pond: ")
-        if pond_selection.isdigit() and (1 <= int(pond_selection) < len(PONDS) + 2):
+        if pond_selection.isdigit() and (0 <= int(pond_selection) < len(PONDS) + 1):
             pond_selection = int(pond_selection)
 
-            if pond_selection == 1:
+            if pond_selection == 0:
                 return None
 
             while True:
@@ -39,7 +52,7 @@ def select_pond():
                         choosing_location = False
                         break
                     elif pond_options_select == 2:
-                        PONDS[pond_selection - 2].display_pond_info()
+                        PONDS[pond_selection - 1].display_pond_info()
                     else:
                         break
                 else:
@@ -47,8 +60,8 @@ def select_pond():
         else:
             print("[!] Invalid Option")
 
-    print("Now fishing at " + str(PONDS[pond_selection - 2].name) + "...")
-    return PONDS[pond_selection - 2]
+    print("Now fishing at " + str(PONDS[pond_selection - 1].name) + "...")
+    return PONDS[pond_selection - 1]
 
 
 def main_menu(shop, bucket, bag):
@@ -68,12 +81,9 @@ def main_menu(shop, bucket, bag):
                     # require rod
                     while True:
                         print("(i) Select a rod to equip")
-                        equipped_rod = bag.select_item(True, Rod)
+                        equipped_rod = bag.select_item(True, Rod, selected_pond.deep_sea)
                         if equipped_rod is not None:
                             break
-
-                    # if equipped_rod.cur_durability <= 0:
-                    #     print("[!] Unable to fish without a fishing rod!")
 
                     selected_pond.place_fish()
 
@@ -94,7 +104,7 @@ def main_menu(shop, bucket, bag):
             elif selection == 3:
                 bucket.select_fish()
             elif selection == 4:
-                bag.select_item(False, None)
+                bag.select_item(False, None, False)
             elif selection == 5:
                 pass
             elif selection == 6:
@@ -113,8 +123,8 @@ def start_game(save_files):
     shop = Shop()
 
     # set up storage and items
-    my_bucket = Fishing_Bucket(20)
-    my_bag = Bag(20)
+    my_bucket = Fishing_Bucket(1)
+    my_bag = Bag(5)
 
     rods = [Rod("Cheap Rod", 10, 5, 0.0, False), Rod("God Rod", 5000, 100, 2.0, True)]
 
