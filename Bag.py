@@ -71,6 +71,7 @@ class Bag:
                     if is_fishing:
                         if pond.deep_sea and not item.deep_sea:
                             print("[!] A deep sea fishing rod is required to fish at this location!")
+                            return False
                         else:
                             self.use_item(item, save_obj, pond)
                     else:

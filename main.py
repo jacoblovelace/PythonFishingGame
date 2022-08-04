@@ -22,7 +22,7 @@ def display_ponds():
         print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
 
 
-def select_pond():
+def select_pond(save_obj):
     choosing_location = True
     pond_selection = 1
     while choosing_location:
@@ -38,7 +38,8 @@ def select_pond():
             if pond_selection == 0:
                 return None
 
-            while True:
+            choosing_option = True
+            while choosing_option:
                 options = ['Fish Here', 'Pond Info', 'Go Back']
                 display_options_from_list(options)
 
@@ -46,8 +47,13 @@ def select_pond():
                 if pond_options_select.isdigit() and (0 < int(pond_options_select) <= len(options)):
                     pond_options_select = int(pond_options_select)
                     if pond_options_select == 1:
-                        choosing_location = False
-                        break
+                        # require rod
+                        while True:
+                            print("(i) Select a rod to equip")
+                            if save_obj.bag.select_item(True, Rod, save_obj, PONDS[pond_selection - 1]):
+                                choosing_option = False
+                                choosing_location = False
+                            break
                     elif pond_options_select == 2:
                         PONDS[pond_selection - 1].display_pond_info()
                     else:
@@ -74,14 +80,8 @@ def main_menu(save_obj, shop):
 
             if selection == 1:
 
-                selected_pond = select_pond()
+                selected_pond = select_pond(save_obj)
                 if selected_pond:
-
-                    # require rod
-                    while True:
-                        print("(i) Select a rod to equip")
-                        if save_obj.bag.select_item(True, Rod, save_obj, selected_pond):
-                            break
 
                     print("ROD:", save_obj.equipped_rod)
                     selected_pond.place_fish()
