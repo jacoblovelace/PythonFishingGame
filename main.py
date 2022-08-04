@@ -85,6 +85,7 @@ def main_menu(shop, bucket, bag):
                         if equipped_rod is not None:
                             break
 
+
                     selected_pond.place_fish()
 
                     # fish until no more fish left in pond
