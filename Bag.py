@@ -45,7 +45,8 @@ class Bag:
                     item = self.contents[num - 1]
                     if type_requirement is None or issubclass(type_requirement, type(item)):
                         if self.item_options(item, is_fishing, save_obj, pond):
-                            return item
+                            print("checkpoint!")
+                            return True
                     else:
                         print("[!] Must select an item of type " + str(type_requirement))
                 else:
@@ -67,14 +68,14 @@ class Bag:
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    if pond.deep_sea and not item.deep_sea:
-                        print("[!] A deep sea fishing rod is required to fish at this location!")
-                    else:
-                        if is_fishing:
-                            self.use_item(item, save_obj, pond)
-                            return True
+                    if is_fishing:
+                        if pond.deep_sea and not item.deep_sea:
+                            print("[!] A deep sea fishing rod is required to fish at this location!")
                         else:
-                            self.sell_item(item)
+                            self.use_item(item, save_obj, pond)
+                    else:
+                        self.sell_item(item)
+                    return True
                 elif selection == 2:
                     item.display_info()
                 else:

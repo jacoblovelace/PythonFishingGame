@@ -21,7 +21,7 @@ def fish_caught_options(bucket, fish):
 
 
 def do_fish(pond, save_obj):
-    rod.display_stats()
+    save_obj.equipped_rod.display_stats()
     pond.display_pond()
 
     # get input
@@ -50,7 +50,7 @@ def do_fish(pond, save_obj):
                 print("[!] Invalid move")
 
     # update durability
-    save_obj.rod.decrease_duraility()
+    save_obj.equipped_rod.decrease_duraility()
 
     # get and display catch result
     fish_found = False
@@ -58,26 +58,26 @@ def do_fish(pond, save_obj):
         pond.fish_spots.remove(spot)
         for fish in pond.fish:
             if spot == fish.pos:
-                status = fish.catch_status(rod)
+                status = fish.catch_status(save_obj.equipped_rod)
                 if status == "caught":
                     print("\t> You caught a {} ({} coins)".format(fish.to_string(), fish.value))
 
-                    fish_caught_options(bucket, fish)
+                    fish_caught_options(save_obj.bucket, fish)
                     pond.fish.remove(fish)
                     break
                 elif status == "fled":
                     break
                 else:
                     print("> The fish broke your rod!")
-                    save_obj.rod.break_rod()
+                    save_obj.equipped_rod.break_rod()
                     return False
         fish_found = True
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")
 
     # return False if rod breaks
-    if save_obj.rod.cur_durability <= 0:
-        save_obj.rod.break_rod()
+    if save_obj.equipped_rod.cur_durability <= 0:
+        save_obj.equipped_rod.break_rod()
         return False
     # else return true
     return True

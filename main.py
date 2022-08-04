@@ -2,8 +2,6 @@ from time import sleep
 from file_functions import *
 from fishing import *
 from ponds import *
-from Bucket_Class import Fishing_Bucket
-from Bag import Bag
 from general_functions import *
 from Rod import *
 from Shop import Shop
@@ -63,7 +61,7 @@ def select_pond():
     return PONDS[pond_selection - 1]
 
 
-def main_menu(save_obj):
+def main_menu(save_obj, shop):
     save(save_obj)
 
     options = ["Go Fishing", "Shop", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
@@ -82,15 +80,17 @@ def main_menu(save_obj):
                     # require rod
                     while True:
                         print("(i) Select a rod to equip")
-                        save_obj.bag.select_item(True, Rod, save_obj, selected_pond)
+                        if save_obj.bag.select_item(True, Rod, save_obj, selected_pond):
+                            break
 
+                    print("ROD:", save_obj.equipped_rod)
                     selected_pond.place_fish()
 
                     # fish until no more fish left in pond
                     while len(selected_pond.fish_spots) > 0:
 
                         # if rod breaks, stop fishing
-                        if not do_fish(selected_pond, save_obj.bucket, save_obj.equipped_rod, save_obj.bag, save_obj):
+                        if not do_fish(selected_pond, save_obj):
                             break
                         # if still fishing, move the fish
                         selected_pond.move_fish()
@@ -103,7 +103,7 @@ def main_menu(save_obj):
             elif selection == 3:
                 save_obj.bucket.select_fish()
             elif selection == 4:
-                save_obj.bag.select_item(False, None, False)
+                save_obj.bag.select_item(False, None, False, None)
             elif selection == 5:
                 pass
             elif selection == 6:
@@ -115,23 +115,12 @@ def main_menu(save_obj):
 
 
 def start_game(save_file):
-    # autosave
-    # save_the_save_files(save_files)
 
     # set up shop
     shop = Shop()
 
-    # set up storage and items
-    # save_file.bucket = Fishing_Bucket(10)
-    # save_file.bag = Bag(5)
-
-    # rods = [Rod("Cheap Rod", 10, 5, 0.0, False), Rod("God Rod", 5000, 100, 2.0, True)]
-
-    # for rod in rods:
-    #     save_file.bag.add_item(rod)
-
     # display main activity menu
-    if not main_menu(save_file):
+    if not main_menu(save_file, shop):
         return False
 
 
@@ -151,7 +140,7 @@ def title_sequence():
 
 
 if __name__ == '__main__':
-    title_sequence()
+    # title_sequence()
 
     choosing_file = True
     while choosing_file:

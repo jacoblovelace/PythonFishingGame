@@ -50,9 +50,8 @@ class Rod(Item, ABC):
     def use(self, save_obj, pond):
         if save_obj.equipped_rod is not None:
             save_obj.bag.add_item(save_obj.equipped_rod)
-        save_obj.equipped_rod = save_obj.bag.select_item(True, Rod, save_obj, pond)
-        if save_obj.equipped_rod is not None:
-            return True
+        save_obj.equipped_rod = self
+        return True
 
     def display_info(self):
         print(self.name)
