@@ -1,5 +1,4 @@
 from time import sleep
-
 from file_functions import *
 from fishing import *
 from ponds import *
@@ -64,13 +63,15 @@ def select_pond():
     return PONDS[pond_selection - 1]
 
 
-def main_menu(shop, bucket, bag):
+def main_menu(save_obj):
+    save(save_obj)
+
     options = ["Go Fishing", "Shop", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
     while True:
         title_display("main menu")
         display_options_from_list(options)
         selection = input(">>> Enter an option: ")
-        if selection.isdigit() and (0 < int(selection) < len(options)):
+        if selection.isdigit() and (0 < int(selection) <= len(options)):
             selection = int(selection)
 
             if selection == 1:
@@ -81,10 +82,7 @@ def main_menu(shop, bucket, bag):
                     # require rod
                     while True:
                         print("(i) Select a rod to equip")
-                        equipped_rod = bag.select_item(True, Rod, selected_pond.deep_sea)
-                        if equipped_rod is not None:
-                            break
-
+                        save_obj.bag.select_item(True, Rod, save_obj, selected_pond)
 
                     selected_pond.place_fish()
 
@@ -92,20 +90,20 @@ def main_menu(shop, bucket, bag):
                     while len(selected_pond.fish_spots) > 0:
 
                         # if rod breaks, stop fishing
-                        if not do_fish(selected_pond, bucket, equipped_rod, bag):
+                        if not do_fish(selected_pond, save_obj.bucket, save_obj.equipped_rod, save_obj.bag, save_obj):
                             break
                         # if still fishing, move the fish
                         selected_pond.move_fish()
 
                     # if the rod did not break, add it to the bag
-                    if equipped_rod.exists:
-                        bag.add_item(equipped_rod)
+                    if save_obj.equipped_rod.cur_durability > 0:
+                        save_obj.bag.add_item(save_obj.equipped_rod)
             elif selection == 2:
-                shop.main_menu(bag)
+                shop.main_menu(save_obj.bag)
             elif selection == 3:
-                bucket.select_fish()
+                save_obj.bucket.select_fish()
             elif selection == 4:
-                bag.select_item(False, None, False)
+                save_obj.bag.select_item(False, None, False)
             elif selection == 5:
                 pass
             elif selection == 6:
@@ -116,24 +114,24 @@ def main_menu(shop, bucket, bag):
             print("[!] Invalid option")
 
 
-def start_game(save_files):
+def start_game(save_file):
     # autosave
-    save_the_save_files(save_files)
+    # save_the_save_files(save_files)
 
     # set up shop
     shop = Shop()
 
     # set up storage and items
-    my_bucket = Fishing_Bucket(10)
-    my_bag = Bag(5)
+    # save_file.bucket = Fishing_Bucket(10)
+    # save_file.bag = Bag(5)
 
-    rods = [Rod("Cheap Rod", 10, 5, 0.0, False), Rod("God Rod", 5000, 100, 2.0, True)]
+    # rods = [Rod("Cheap Rod", 10, 5, 0.0, False), Rod("God Rod", 5000, 100, 2.0, True)]
 
-    for rod in rods:
-        my_bag.add_item(rod)
+    # for rod in rods:
+    #     save_file.bag.add_item(rod)
 
     # display main activity menu
-    if not main_menu(shop, my_bucket, my_bag):
+    if not main_menu(save_file):
         return False
 
 
@@ -153,24 +151,17 @@ def title_sequence():
 
 
 if __name__ == '__main__':
-
-    # title_sequence()
+    title_sequence()
 
     choosing_file = True
     while choosing_file:
         # choose file
-        game_file, save_file_list = choose_file()
+        game_file = choose_file()
 
-        # if file does not exist, ask to create file
-        if not check_if_file_exists(game_file):
-            create_new_file(game_file, save_file_list)
+        # if options returns True, start the game
+        if file_options(game_file):
 
-        # if file exists, get options
-        if check_if_file_exists(game_file):
-            # if options returns True, start the game
-            if file_options(game_file, save_file_list):
-
-                game_running = True
-                while game_running:
-                    if not start_game(save_file_list):
-                        game_running = False
+            game_running = True
+            while game_running:
+                if not start_game(game_file):
+                    game_running = False

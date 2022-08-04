@@ -5,57 +5,66 @@ from general_functions import *
 from Save_File_Class import *
 
 
-
 def choose_file():
-    title_display("file select")
-    print(">>> (press 'q' to quit) Enter 1, 2, or 3 to select or create a new save file below: \n")
-
-    # load save files and display them
-    save_list = load_the_save_files()
-    for i in range(0, len(save_list)):
-        if save_list[i].exists:
-            print("[" + str(i+1) + "] - " + str(save_list[i].name))
-        else:
-            print("[" + str(i + 1) + "] - {empty}")
-    print("")
-
-    # get user input to select a file
     while True:
-        file_select_num = input(">>> Enter a file number: ")
-
-        if file_select_num == 'q':
-            prompt_quit()
-        else:
-            if (file_select_num.isdigit()) and (1 <= int(file_select_num) <= 3):
-                break
+        title_display("file select")
+        print(">>> (press 'q' to quit) Enter 1, 2, or 3 to select or create a new save file below: \n")
+        file_list = ["savefile1.txt", "savefile2.txt", "savefile3.txt"]
+    # load save files and display them
+        save_names = []
+        exists_list = []
+        for i in range(len(file_list)):
+            with open(file_list[i], "r") as file:
+                lines = file.readlines()
+            if lines[0].strip() == "True":
+                exists_list.append(1)
+                print("[" + str(i+1) + "] - " + str(lines[1]).strip())
             else:
-                print("[!] invalid option\n")
+                exists_list.append(0)
+                print("[" + str(i + 1) + "] - {empty}")
+        print("")
+
+        # get user input to select a file
+        while True:
+            file_select_num = input(">>> Enter a file number: ")
+
+            if file_select_num == 'q':
+                prompt_quit()
+            else:
+                if (file_select_num.isdigit()) and (1 <= int(file_select_num) <= 3):
+                    break
+                else:
+                    print("[!] invalid option\n")
+        file_select_num = int(file_select_num)
+        if not exists_list[file_select_num - 1]:
+            if create_new_file(file_list[file_select_num - 1]):
+                break
+        else:
+            break
 
     # grab file from list of saves
     print("Loading save file [" + str(file_select_num) + "]...\n")
-    file = save_list[int(file_select_num) - 1]
+    with open(file_list[file_select_num - 1], "r") as file:
+        lines = file.readlines()
 
-    # set index attribute of file
-    file.set_index(file_select_num)
+    file = Save_File(file_list[file_select_num - 1], lines)
 
-    return file, save_list
+    return file
 
 
-def create_new_file(file, save_list):
+def create_new_file(file_name):
 
     # create new file with inputted name
-    create_file_invalid = True
-    while create_file_invalid:
+    while True:
         create_file = input(">>> No save data for this file. Would you like to create a new file? [y/n]: ")
         if create_file == 'y':
 
             # set exists flag, index, and name
-            file_name = input(">>> Enter a name for the save file: ")
-            file.set_exists(True)
-            file.set_name(file_name)
-
-            # save updated file back to save file data
-            save_the_save_files(save_list)
+            save_name = input(">>> Enter a name for the save file: ")
+            with open(file_name, "w") as file:
+                values = [True, save_name, [10, ["Rod(\"Cheap Rod\", 10, 5, 0.0, False)"]], [5, []], 0, [0, 0]]
+                for value in values:
+                    file.write(str(value) + '\n')
 
             # file created, so return True
             return True
@@ -66,22 +75,22 @@ def create_new_file(file, save_list):
         return False
 
 
-def file_options(file, save_list):
+def file_options(file):
 
-    print(">>> Select an action below:")
+    print("> Select an action below:")
     file_actions = ["Play", "Delete", "Go Back"]
     display_options_from_list(file_actions)
 
     while True:
-        action_select_num = input(">>> Enter an option number: ")
-        if (action_select_num.isdigit()) and (1 <= int(action_select_num) <= 3):
-            if action_select_num == '1':
+        num = input(">>> Enter an option number: ")
+        if (num.isdigit()) and (1 <= int(num) <= 3):
+            if num == '1':
                 print("> Now playing as save file '" + file.name + "'")
                 return True
-            elif action_select_num == '2':
+            elif num == '2':
                 if prompt_delete_file():
-                    print("> Deleting save file '" + str(file.name) + "'")
-                    delete_file(save_list, file)
+                    print("> Deleting save file '" + file.name + "'")
+                    file.delete()
                 return False
             else:
                 return False
@@ -111,23 +120,15 @@ def prompt_delete_file():
     return False
 
 
-def delete_file(save_files, file):
-    file.delete()
-    save_the_save_files(save_files)
-
-
-def check_if_file_exists(file):
-    if file.exists:
-        return True
-    return False
-
-
-def save_the_save_files(save_files):
-    with open('savefiledata.dat', 'wb') as f:
-        pickle.dump(save_files, f)
-
-
-def load_the_save_files():
-    with open('savefiledata.dat', 'rb') as f:
-        save_file_data = pickle.load(f)
-    return save_file_data
+def save(save):
+    with open(save.file_name, "w") as file:
+        # file.writeline("True")
+        # file.writeline(save.name)
+        bag = [save.bag.capacity, [item.get_constructor_string() for item in save.bag.contents]]
+        # file.writeline(str(bag))
+        bucket = [save.bucket.capacity, [item.get_constructor_string() for item in save.bucket.contents]]
+        # file.writeline(str(bucket))
+        # file.writeline(str(save.coins))
+        lines = ["True", save.name, str(bag), str(bucket), str(save.coins), str(save.level)]
+        for line in lines:
+            file.write(line + "\n")

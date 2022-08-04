@@ -7,9 +7,12 @@ from file_functions import display_options_from_list
 
 
 class Fishing_Bucket:
-    contents = []
 
-    def __init__(self, capacity=25):
+    def __init__(self, capacity=25, contents=None):
+        if contents is None:
+            contents = []
+        else:
+            self.contents = contents
         self.capacity = capacity
 
     def display_contents(self):

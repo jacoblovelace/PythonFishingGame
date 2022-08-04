@@ -5,16 +5,17 @@ from Item import Item
 
 class Rod(Item, ABC):
 
-    def __init__(self, name, value, max_durability, resistance, deep_sea):
+    def __init__(self, name, value, max_durability, resistance, deep_sea, bait=None):
         super().__init__()
+        if name == 1:
+            name = "Cheap Rod"
         self.name = name
         self.value = value
         self.max_durability = max_durability
         self.cur_durability = max_durability
         self.resistance = resistance
         self.deep_sea = deep_sea
-        self.bait = None
-        self.exists = True
+        self.bait = bait
 
     def detach_bait(self):
         # Bag.add(self.bait)
@@ -46,8 +47,12 @@ class Rod(Item, ABC):
         print(self.to_string() + " | Bait: " + bait_display + " | Durability: ", end="")
         self.display_durability()
 
-    def use(self):
-        pass
+    def use(self, save_obj, pond):
+        if save_obj.equipped_rod is not None:
+            save_obj.bag.add_item(save_obj.equipped_rod)
+        save_obj.equipped_rod = save_obj.bag.select_item(True, Rod, save_obj, pond)
+        if save_obj.equipped_rod is not None:
+            return True
 
     def display_info(self):
         print(self.name)
@@ -68,3 +73,6 @@ class Rod(Item, ABC):
             print("\tDeep sea: Yes")
         else:
             print("\tDeep sea: No")
+    
+    def get_constructor_string(self):
+        return f"Rod('{self.name}', {self.value}, {self.max_durability}, {self.cur_durability}, {self.deep_sea}, {self.bait})"

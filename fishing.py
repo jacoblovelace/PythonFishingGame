@@ -20,7 +20,7 @@ def fish_caught_options(bucket, fish):
             print("[!] Invalid option")
 
 
-def do_fish(pond, bucket, rod, bag):
+def do_fish(pond, save_obj):
     rod.display_stats()
     pond.display_pond()
 
@@ -36,7 +36,7 @@ def do_fish(pond, bucket, rod, bag):
                 elif confirm_quit != 'n':
                     print("[!] invalid option\n")
         elif spot_input == 'b':
-            bag.select_item(True, None, pond.deep_sea)
+            save_obj.bag.select_item(True, None, save_obj, pond)
         else:
             if spot_input != "" and spot_input[0].isalpha() and spot_input[1:].isdigit():
                 if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):
@@ -50,7 +50,7 @@ def do_fish(pond, bucket, rod, bag):
                 print("[!] Invalid move")
 
     # update durability
-    rod.decrease_duraility()
+    save_obj.rod.decrease_duraility()
 
     # get and display catch result
     fish_found = False
@@ -69,15 +69,15 @@ def do_fish(pond, bucket, rod, bag):
                     break
                 else:
                     print("> The fish broke your rod!")
-                    rod.break_rod()
+                    save_obj.rod.break_rod()
                     return False
         fish_found = True
     if not fish_found:
         print("\t\x1B[3m...Nothin' caught...\x1B[0m")
 
     # return False if rod breaks
-    if rod.cur_durability <= 0:
-        rod.break_rod()
+    if save_obj.rod.cur_durability <= 0:
+        save_obj.rod.break_rod()
         return False
     # else return true
     return True

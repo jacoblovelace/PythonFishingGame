@@ -17,7 +17,11 @@ class Item(metaclass=ABCMeta):
         return self.name
 
     @abstractmethod
-    def use(self):
+    def get_constructor_string(self):
+        pass
+
+    @abstractmethod
+    def use(self, save_obj, pond):
         pass
 
     @abstractmethod

@@ -7,9 +7,12 @@ from Item import Item
 
 
 class Bag:
-    contents = []
 
-    def __init__(self, capacity=10):
+    def __init__(self, capacity=10, contents=None):
+        if contents is None:
+            contents = []
+        else:
+            self.contents = contents
         self.capacity = capacity
 
     def display_contents(self):
@@ -32,7 +35,7 @@ class Bag:
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
         print("\n")
 
-    def select_item(self, is_fishing, type_requirement, is_deep_sea):
+    def select_item(self, is_fishing, type_requirement, save_obj, pond):
         while True:
             self.display_contents()
             num = input(">>> (press 'q' to quit) Enter a slot number: ")
@@ -41,7 +44,7 @@ class Bag:
                 if num <= len(self.contents):
                     item = self.contents[num - 1]
                     if type_requirement is None or issubclass(type_requirement, type(item)):
-                        if self.item_options(item, is_fishing, is_deep_sea):
+                        if self.item_options(item, is_fishing, save_obj, pond):
                             return item
                     else:
                         print("[!] Must select an item of type " + str(type_requirement))
@@ -52,7 +55,7 @@ class Bag:
             else:
                 print("[!] Invalid option")
 
-    def item_options(self, item, is_fishing, is_deep_sea):
+    def item_options(self, item, is_fishing, save_obj, pond):
         options = ["Sell", "Info", "Go Back"]
         if is_fishing:
             options[0] = "Use"
@@ -64,11 +67,11 @@ class Bag:
             if selection.isdigit() and (0 < int(selection) <= len(options)):
                 selection = int(selection)
                 if selection == 1:
-                    if is_deep_sea and not item.deep_sea:
+                    if pond.deep_sea and not item.deep_sea:
                         print("[!] A deep sea fishing rod is required to fish at this location!")
                     else:
                         if is_fishing:
-                            self.use_item(item)
+                            self.use_item(item, save_obj, pond)
                             return True
                         else:
                             self.sell_item(item)
@@ -109,7 +112,7 @@ class Bag:
         else:
             print("(i) Fish can only be stored in the fishing bucket")
 
-    def use_item(self, item):
+    def use_item(self, item, save_obj, pond):
         print("> Now using " + item.to_string())
-        item.use()
+        item.use(save_obj, pond)
         self.contents.remove(item)
