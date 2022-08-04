@@ -50,7 +50,7 @@ def select_pond(save_obj):
                         # require rod
                         while True:
                             print("(i) Select a rod to equip")
-                            if save_obj.bag.select_item(True, Rod, save_obj, PONDS[pond_selection - 1]):
+                            if save_obj.bag.select_item(save_obj, True, Rod, PONDS[pond_selection - 1]):
                                 choosing_option = False
                                 choosing_location = False
                             break
@@ -99,11 +99,11 @@ def main_menu(save_obj, shop):
                     if save_obj.equipped_rod.cur_durability > 0:
                         save_obj.bag.add_item(save_obj.equipped_rod)
             elif selection == 2:
-                shop.main_menu(save_obj.bag)
+                shop.main_menu(save_obj)
             elif selection == 3:
                 save_obj.bucket.select_fish()
             elif selection == 4:
-                save_obj.bag.select_item(False, None, False, None)
+                save_obj.bag.select_item(save_obj, False, None, None)
             elif selection == 5:
                 pass
             elif selection == 6:

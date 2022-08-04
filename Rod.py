@@ -13,6 +13,7 @@ class Rod(Item, ABC):
         self.value = value
         self.max_durability = max_durability
         self.cur_durability = max_durability
+        self.sell_value = int(self.value * (self.cur_durability/self.max_durability) * 0.5)
         self.resistance = resistance
         self.deep_sea = deep_sea
         self.bait = bait

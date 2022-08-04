@@ -36,7 +36,7 @@ def do_fish(pond, save_obj):
                 elif confirm_quit != 'n':
                     print("[!] invalid option\n")
         elif spot_input == 'b':
-            save_obj.bag.select_item(True, None, save_obj, pond)
+            save_obj.bag.select_item(save_obj, True, None, pond)
         else:
             if spot_input != "" and spot_input[0].isalpha() and spot_input[1:].isdigit():
                 if (0 <= int(ord(spot_input[0].upper()) - 65) < pond.y) and (0 <= int(spot_input[1:]) <= pond.x):

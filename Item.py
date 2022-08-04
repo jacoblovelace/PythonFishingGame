@@ -6,6 +6,7 @@ from abc import ABCMeta, abstractmethod
 class Item(metaclass=ABCMeta):
     name = ""
     value = 0
+    sell_value = value/2
 
     def __init__(self):
         pass

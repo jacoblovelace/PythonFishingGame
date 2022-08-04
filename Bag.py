@@ -35,7 +35,7 @@ class Bag:
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
         print("\n")
 
-    def select_item(self, is_fishing, type_requirement, save_obj, pond):
+    def select_item(self, save_obj, is_fishing, type_requirement, pond):
         while True:
             self.display_contents()
             num = input(">>> (press 'q' to quit) Enter a slot number: ")
@@ -44,7 +44,7 @@ class Bag:
                 if num <= len(self.contents):
                     item = self.contents[num - 1]
                     if type_requirement is None or issubclass(type_requirement, type(item)):
-                        if self.item_options(item, is_fishing, save_obj, pond):
+                        if self.item_options(save_obj, item, is_fishing, pond):
                             print("checkpoint!")
                             return True
                     else:
@@ -56,7 +56,7 @@ class Bag:
             else:
                 print("[!] Invalid option")
 
-    def item_options(self, item, is_fishing, save_obj, pond):
+    def item_options(self, save_obj, item, is_fishing, pond):
         options = ["Sell", "Info", "Go Back"]
         if is_fishing:
             options[0] = "Use"
@@ -75,7 +75,7 @@ class Bag:
                         else:
                             self.use_item(item, save_obj, pond)
                     else:
-                        self.sell_item(item)
+                        self.sell_item(save_obj, item)
                     return True
                 elif selection == 2:
                     item.display_info()
@@ -84,16 +84,16 @@ class Bag:
             else:
                 print("[!] Invalid option")
 
-    def sell_item(self, item):
+    def sell_item(self, save_obj, item):
         while True:
             confirm_sell = input(">>> Are you sure you want to sell "
-                                 + item.to_string() + " for " + str(item.value) + " coins? (y/n): ")
+                                 + item.to_string() + " for " + str(item.sell_value) + " coins? [y/n]: ")
             if confirm_sell == 'y':
                 # remove item at specified index
                 self.contents.remove(item)
                 # give coins of item to player
-
-                print("Sold " + item.to_string() + " for " + str(item.value) + " coins!")
+                save_obj.coins += item.sell_value
+                print("Sold " + item.to_string() + " for " + str(item.sell_value) + " coins!")
                 break
             elif confirm_sell == 'n':
                 break
