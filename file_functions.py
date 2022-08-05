@@ -62,7 +62,7 @@ def create_new_file(file_name):
             # set exists flag, index, and name
             save_name = input(">>> Enter a name for the save file: ")
             with open(file_name, "w") as file:
-                values = [True, save_name, [10, ["Rod(\"Cheap Rod\", 10, 5, 0.0, False)"]], [5, []], 100, [0, 0]]
+                values = [True, save_name, [10, ["Rod(\"Cheap Rod\", 10, 5, -0.2, False, None)"]], [10, []], 20, [0, 0]]
                 for value in values:
                     file.write(str(value) + '\n')
 
@@ -126,7 +126,7 @@ def save(save):
         # file.writeline(save.name)
         bag = [save.bag.capacity, [item.get_constructor_string() for item in save.bag.contents]]
         # file.writeline(str(bag))
-        bucket = [save.bucket.capacity, [item.get_constructor_string() for item in save.bucket.contents]]
+        bucket = [save.bucket.capacity, [fish.get_constructor_string() for fish in save.bucket.contents]]
         # file.writeline(str(bucket))
         # file.writeline(str(save.coins))
         lines = ["True", save.name, str(bag), str(bucket), str(save.coins), str(save.level)]

@@ -10,7 +10,7 @@ class Fishing_Bucket:
 
     def __init__(self, capacity=25, contents=None):
         if contents is None:
-            contents = []
+            self.contents = []
         else:
             self.contents = contents
         self.capacity = capacity
@@ -35,14 +35,14 @@ class Fishing_Bucket:
             print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
         print("\n")
 
-    def select_fish(self):
+    def select_fish(self, save_obj):
         while True:
             self.display_contents()
             num = input(">>> (press 'q' to quit) Enter a slot number: ")
             if num.isdigit() and (0 < int(num) <= self.capacity):
                 num = int(num)
                 if num <= len(self.contents):
-                    self.fish_options(num)
+                    self.fish_options(save_obj, num)
                 else:
                     print("[!] Slot is empty")
             elif num == 'q':
@@ -50,7 +50,7 @@ class Fishing_Bucket:
             else:
                 print("[!] Invalid option")
 
-    def fish_options(self, index):
+    def fish_options(self, save_obj, index):
         fish = self.contents[index-1]
         print("Selected: " + fish.to_string() + " (" + str(fish.value) + " coins)")
         options = ["Release", "Sell", "Add to Aquarium", "Go Back"]
@@ -63,7 +63,7 @@ class Fishing_Bucket:
                     self.release_fish(index - 1)
                     return
                 elif selection == 2:
-                    self.sell_fish(index - 1)
+                    self.sell_fish(save_obj, index - 1)
                     return
                 elif selection == 3:
                     print("I added it to the aquarium (not actually lol)!")
@@ -88,16 +88,16 @@ class Fishing_Bucket:
             else:
                 print("[!] Invalid option")
 
-    def sell_fish(self, index):
+    def sell_fish(self, save_obj, index):
         fish_to_sell = self.contents[index]
         while True:
             confirm_sell = input(">>> Are you sure you want to sell "
                                  + fish_to_sell.to_string() + ", worth " + str(fish_to_sell.value) + " coins? (y/n): ")
             if confirm_sell == 'y':
                 # remove item at specified index
-                sold_fish = self.contents.pop(index)
+                self.contents.pop(index)
                 # give coins of fish to player
-
+                save_obj.coins += fish_to_sell.value
                 print("Sold " + fish_to_sell.to_string() + " for " + str(fish_to_sell.value) + " coins!")
                 break
             elif confirm_sell == 'n':

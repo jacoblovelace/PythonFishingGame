@@ -1,11 +1,12 @@
 # Fish class and its subclasses
+from abc import abstractmethod, ABC
 from math import sqrt
 from numpy.random import choice
 
 
 class Fish:
-    NORMALITY = 100
     NAME = ""
+    NORMALITY = 100
     LEVEL = 1
 
     def __init__(self, size=1, pos=0):
@@ -38,6 +39,10 @@ class Fish:
             print("\t\x1B[3mThe fish got away!\x1B[0m")
         return statuses[1]
 
+    @abstractmethod
+    def get_constructor_string(self):
+        pass
+
 
 class Goldfish(Fish):
     NAME = "goldfish"
@@ -45,6 +50,10 @@ class Goldfish(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
+        self.breakability = -0.5
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Koi(Fish):
@@ -53,6 +62,10 @@ class Koi(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
+        self.breakability = -0.2
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Catfish(Fish):
@@ -63,6 +76,9 @@ class Catfish(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.8
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Trout(Fish):
     NAME = "trout"
@@ -70,6 +86,9 @@ class Trout(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Bass(Fish):
@@ -80,6 +99,9 @@ class Bass(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.8
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Salmon(Fish):
     NAME = "salmon"
@@ -89,6 +111,9 @@ class Salmon(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.7
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Carp(Fish):
     NAME = "carp"
@@ -97,6 +122,9 @@ class Carp(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Pike(Fish):
@@ -108,6 +136,9 @@ class Pike(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.7
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Crappie(Fish):
     NAME = "crappie"
@@ -117,6 +148,9 @@ class Crappie(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.8
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Perch(Fish):
@@ -128,6 +162,9 @@ class Perch(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.9
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Shad(Fish):
     NAME = "shad"
@@ -137,6 +174,9 @@ class Shad(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.8
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Herring(Fish):
@@ -148,14 +188,20 @@ class Herring(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.6
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Dead_Fish(Fish):
     NAME = "dead fish"
-    NORMALITY = 90
+    NORMALITY = 70
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.value = 2
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Glowfish(Fish):
@@ -167,6 +213,9 @@ class Glowfish(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.5
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Electric_Eel(Fish):
     NAME = "electric eel"
@@ -177,6 +226,9 @@ class Electric_Eel(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.6
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Piranha(Fish):
     NAME = "piranha"
@@ -186,6 +238,9 @@ class Piranha(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.breakability = 0.2
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Bull_Shark(Fish):
@@ -198,6 +253,9 @@ class Bull_Shark(Fish):
         self.cactchability = 0.5
         self.breakability = 0.7
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Payara(Fish):
     NAME = "payara"
@@ -209,6 +267,9 @@ class Payara(Fish):
         self.cactchability = 0.7
         self.breakability = 0.3
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Jellyfish(Fish):
     NAME = "jellyfish"
@@ -218,6 +279,9 @@ class Jellyfish(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.6
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Sardine(Fish):
@@ -229,6 +293,9 @@ class Sardine(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.9
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Anchovy(Fish):
     NAME = "anchovy"
@@ -237,6 +304,9 @@ class Anchovy(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Great_White_Shark(Fish):
@@ -249,6 +319,9 @@ class Great_White_Shark(Fish):
         self.cactchability = 0.2
         self.breakability = 0.8
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Tuna(Fish):
     NAME = "tuna"
@@ -260,6 +333,9 @@ class Tuna(Fish):
         self.cactchability = 0.4
         self.breakability = 0.3
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Clownfish(Fish):
     NAME = "clownfish"
@@ -269,6 +345,9 @@ class Clownfish(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.8
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Snapper(Fish):
@@ -280,6 +359,9 @@ class Snapper(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.9
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Angelfish(Fish):
     NAME = "angelfish"
@@ -289,6 +371,9 @@ class Angelfish(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.8
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Triggerfish(Fish):
@@ -300,6 +385,9 @@ class Triggerfish(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.5
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Tang(Fish):
     NAME = "tang"
@@ -310,6 +398,9 @@ class Tang(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.9
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Pufferfish(Fish):
     NAME = "pufferfish"
@@ -319,6 +410,9 @@ class Pufferfish(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.4
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Sea_Turtle(Fish):
@@ -331,6 +425,9 @@ class Sea_Turtle(Fish):
         self.cactchability = 0.7
         self.breakability = 0.2
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Piece_of_Kelp(Fish):
     NAME = "piece of kelp"
@@ -339,7 +436,10 @@ class Piece_of_Kelp(Fish):
 
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
-        self.value = 0
+        self.value = 1
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Giant_Kelpfish(Fish):
@@ -351,6 +451,9 @@ class Giant_Kelpfish(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.8
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Rockfish(Fish):
     NAME = "rockfish"
@@ -361,6 +464,9 @@ class Rockfish(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.6
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Bonito(Fish):
     NAME = "bonito"
@@ -370,6 +476,75 @@ class Bonito(Fish):
     def __init__(self, size=1, pos=0):
         super().__init__(size, pos)
         self.cactchability = 0.9
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Desert_Sucker(Fish):
+    NAME = "desert sucker"
+    NORMALITY = 40
+    LEVEL = 5
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Loach_Minnow(Fish):
+    NAME = "loach minnow"
+    NORMALITY = 60
+    LEVEL = 5
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.5
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Pupfish(Fish):
+    NAME = "pupfish"
+    NORMALITY = 45
+    LEVEL = 6
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.6
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Bonytail_Chub(Fish):
+    NAME = "bonytail chub"
+    NORMALITY = 30
+    LEVEL = 6
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.9
+        self.breakability = 0.2
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Squawfish(Fish):
+    NAME = "squawfish"
+    NORMALITY = 20
+    LEVEL = 7
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.8
+        self.breakability = 0.3
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Hammerhead_Shark(Fish):
@@ -382,6 +557,9 @@ class Hammerhead_Shark(Fish):
         self.cactchability = 0.4
         self.breakability = 0.7
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Whale_Shark(Fish):
     NAME = "whale shark"
@@ -392,6 +570,9 @@ class Whale_Shark(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.2
         self.breakability = 0.9
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Tiger_Shark(Fish):
@@ -404,6 +585,9 @@ class Tiger_Shark(Fish):
         self.cactchability = 0.2
         self.breakability = 0.8
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Mako_Shark(Fish):
     NAME = "mako shark"
@@ -414,6 +598,9 @@ class Mako_Shark(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.2
         self.breakability = 0.6
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
 
 
 class Blue_Shark(Fish):
@@ -426,6 +613,9 @@ class Blue_Shark(Fish):
         self.cactchability = 0.2
         self.breakability = 0.7
 
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
 
 class Kraken(Fish):
     NAME = "kraken"
@@ -436,3 +626,6 @@ class Kraken(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.0
         self.breakability = 2.0
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"

@@ -75,4 +75,5 @@ class Rod(Item, ABC):
             print("\tDeep sea: No")
     
     def get_constructor_string(self):
-        return f"Rod('{self.name}', {self.value}, {self.max_durability}, {self.cur_durability}, {self.deep_sea}, {self.bait})"
+        return f"Rod('{self.name}', {self.value}, {self.max_durability}," \
+               f" {self.resistance}, {self.deep_sea}, {self.bait})"

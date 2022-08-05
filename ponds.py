@@ -20,12 +20,20 @@ rainbow_reef = Pond('Rainbow Reef', 12, 12, [3, 2], False,
                      Sea_Turtle],
                     "A beautiful coral reef situated in warm, tropical waters and inhabitated by a diverse population "
                     "of ocean dwellers.")
-kelp_forest = Pond('Kelp Forest', 10, 12, [6, 4], False, [Piece_of_Kelp, Sea_Turtle, Giant_Kelpfish, Rockfish, Bonito,
-                                                          Blue_Shark],
+kelp_forest = Pond('Kelp Forest', 10, 12, [6, 4], False,
+                   [Piece_of_Kelp, Sea_Turtle, Giant_Kelpfish, Rockfish, Bonito, Blue_Shark],
+                   "")
+desert_basin = Pond('Desert Basin', 7, 8, [6, 5], False,
+                    [Desert_Sucker, Loach_Minnow, Pupfish, Bonytail_Chub, Squawfish],
                    "")
 killer_tooth_bay = Pond('Killer Tooth Bay', 8, 13, [5, 3], True,
                         [Blue_Shark, Mako_Shark, Tiger_Shark, Hammerhead_Shark, Great_White_Shark, Whale_Shark],
                         "You'll need a strong rod if you fish here.")
+
+terror_trench = "Terror Trench [Anglerfish, Goblin_Shark, Pelican_Eel, Dragonfish, Deepsea_Octopus]" \
+                " (trackers do not work here because it is too dark)"
+
+pirate_ship_graveyard = "Pirate Ship Graveyard [Kraken, Ghost_Fish, Giant_Squid, Parrotfish, Dead_Fish]"
 
 PONDS = [
     sakura_pond,
@@ -37,5 +45,6 @@ PONDS = [
     open_ocean,
     rainbow_reef,
     kelp_forest,
+    desert_basin,
     killer_tooth_bay
 ]

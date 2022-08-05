@@ -89,7 +89,7 @@ def powerups_menu():
 
 class Shop:
     RODS = [
-        Rod("Cheap Rod", 10, 5, 0.0, False),
+        Rod("Cheap Rod", 10, 5, -0.2, False),
         Rod("Beginner Rod", 30, 10, 0.0, False),
         Rod("Robust Rod", 100, 20, 0.3, False),
         Rod("Heavy Duty Rod", 30, 10, 0.8, False),
