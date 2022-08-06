@@ -204,6 +204,18 @@ class Dead_Fish(Fish):
         return self.NAME + f"('{self.size}', {self.pos})"
 
 
+class Mutant_Minnow(Fish):
+    NAME = "mutant minnow"
+    NORMALITY = 40
+    LEVEL = 2
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
 class Glowfish(Fish):
     NAME = "glowfish"
     NORMALITY = 15
@@ -259,7 +271,7 @@ class Bull_Shark(Fish):
 
 class Payara(Fish):
     NAME = "payara"
-    NORMALITY = 35
+    NORMALITY = 40
     LEVEL = 4
 
     def __init__(self, size=1, pos=0):
@@ -286,7 +298,7 @@ class Jellyfish(Fish):
 
 class Sardine(Fish):
     NAME = "sardine"
-    NORMALITY = 60
+    NORMALITY = 65
     LEVEL = 2
 
     def __init__(self, size=1, pos=0):
@@ -332,6 +344,71 @@ class Tuna(Fish):
         super().__init__(size, pos)
         self.cactchability = 0.4
         self.breakability = 0.3
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Flounder(Fish):
+    NAME = "flounder"
+    NORMALITY = 30
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.7
+        self.breakability = 0.1
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Mullet(Fish):
+    NAME = "mullet"
+    NORMALITY = 55
+    LEVEL = 3
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.9
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Redfish(Fish):
+    NAME = "redfish"
+    NORMALITY = 40
+    LEVEL = 4
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.cactchability = 0.8
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Mackerel(Fish):
+    NAME = "mackerel"
+    NORMALITY = 60
+    LEVEL = 3
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
+        self.breakability = 0.1
+
+    def get_constructor_string(self):
+        return self.NAME + f"('{self.size}', {self.pos})"
+
+
+class Croaker(Fish):
+    NAME = "croaker"
+    NORMALITY = 30
+    LEVEL = 3
+
+    def __init__(self, size=1, pos=0):
+        super().__init__(size, pos)
 
     def get_constructor_string(self):
         return self.NAME + f"('{self.size}', {self.pos})"
