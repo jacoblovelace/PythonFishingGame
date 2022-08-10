@@ -32,7 +32,6 @@ class Rod(Item, ABC):
     def break_rod(self):
         self.cur_durability = 0
         print("[!] Your fishing rod broke!")
-        self.exists = False
         del self
 
     def display_durability(self):

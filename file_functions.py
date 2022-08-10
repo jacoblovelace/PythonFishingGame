@@ -3,12 +3,13 @@ import sys
 
 from general_functions import *
 from Save_File_Class import *
+from Level_System import Level_System
 
 
 def choose_file():
     while True:
         title_display("file select")
-        print(">>> (press 'q' to quit) Enter 1, 2, or 3 to select or create a new save file below: \n")
+        print(">>> Enter 1, 2, or 3 to select or create a new save file below: \n")
         file_list = ["savefile1.txt", "savefile2.txt", "savefile3.txt"]
     # load save files and display them
         save_names = []
@@ -23,6 +24,7 @@ def choose_file():
                 exists_list.append(0)
                 print("[" + str(i + 1) + "] - {empty}")
         print("")
+        print("[q] - Quit Game\n")
 
         # get user input to select a file
         while True:
@@ -62,7 +64,8 @@ def create_new_file(file_name):
             # set exists flag, index, and name
             save_name = input(">>> Enter a name for the save file: ")
             with open(file_name, "w") as file:
-                values = [True, save_name, [10, ["Rod(\"Cheap Rod\", 10, 5, -0.2, False, None)"]], [10, []], 20, [0, 0]]
+                values = [True, save_name, [5, ["Rod(\"Pro Fisher\", 10, 10000, 5.0, True, None)"]],
+                          [10, []], 200, [0, 1]]
                 for value in values:
                     file.write(str(value) + '\n')
 
@@ -83,17 +86,17 @@ def file_options(file):
 
     while True:
         num = input(">>> Enter an option number: ")
-        if (num.isdigit()) and (1 <= int(num) <= 3):
+        if (num.isdigit()) and (1 <= int(num) <= len(file_actions)-1):
             if num == '1':
                 print("> Now playing as save file '" + file.name + "'")
                 return True
-            elif num == '2':
+            else:
                 if prompt_delete_file():
                     print("> Deleting save file '" + file.name + "'")
                     file.delete()
                 return False
-            else:
-                return False
+        elif num == 'q':
+            return False
         else:
             print("[!] invalid option\n")
 
@@ -122,13 +125,9 @@ def prompt_delete_file():
 
 def save(save):
     with open(save.file_name, "w") as file:
-        # file.writeline("True")
-        # file.writeline(save.name)
         bag = [save.bag.capacity, [item.get_constructor_string() for item in save.bag.contents]]
-        # file.writeline(str(bag))
         bucket = [save.bucket.capacity, [fish.get_constructor_string() for fish in save.bucket.contents]]
-        # file.writeline(str(bucket))
-        # file.writeline(str(save.coins))
-        lines = ["True", save.name, str(bag), str(bucket), str(save.coins), str(save.level)]
+        level_system = [save.level_system.xp, save.level_system.level]
+        lines = ["True", save.name, str(bag), str(bucket), str(save.coins), str(level_system)]
         for line in lines:
             file.write(line + "\n")

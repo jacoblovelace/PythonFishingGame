@@ -5,8 +5,9 @@ from general_functions import *
 
 class Pond:
 
-    def __init__(self, name, x, y, num_fish_range, deep_sea, fish_types, description):
+    def __init__(self, name, level, x, y, num_fish_range, deep_sea, fish_types, description):
         self.name = name
+        self.level = level
         self.x = x
         self.y = y
         self.fish_types = fish_types

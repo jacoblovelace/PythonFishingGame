@@ -5,18 +5,19 @@ from ponds import PONDS
 from Rod import Rod
 
 
-def fish_caught_options(bucket, fish):
+def fish_caught_options(save_obj, fish):
     options = ["Add to Bucket", "Release"]
     while True:
         display_options_from_list(options)
-        selection = input(">>> Add to bucket or relase: ")
+        selection = input(">>> Add to bucket or release: ")
         if selection.isdigit() and (0 < int(selection) <= len(options)):
             selection = int(selection)
             if selection == 1:
-                bucket.add_fish(fish)
+                save_obj.bucket.add_fish(fish)
                 break
             else:
                 print("Released " + fish.to_string())
+                save_obj.level_system.add_xp(fish, False)
                 break
         else:
             print("[!] Invalid option")
@@ -24,6 +25,7 @@ def fish_caught_options(bucket, fish):
 
 def do_fish(pond, save_obj):
     save_obj.equipped_rod.display_stats()
+    save_obj.display_stats()
     pond.display_pond()
 
     # get input
@@ -63,8 +65,8 @@ def do_fish(pond, save_obj):
                 status = fish.catch_status(save_obj.equipped_rod)
                 if status == "caught":
                     print("\t> You caught a {} ({} coins)".format(fish.to_string(), fish.value))
-
-                    fish_caught_options(save_obj.bucket, fish)
+                    save_obj.level_system.add_xp(fish, True)
+                    fish_caught_options(save_obj, fish)
                     pond.fish.remove(fish)
                     break
                 elif status == "fled":
@@ -85,7 +87,7 @@ def do_fish(pond, save_obj):
     return True
 
 
-def display_ponds():
+def display_ponds(save_obj):
     print("")
     tab_dist = 40
     for i in range(len(PONDS)):
@@ -95,7 +97,10 @@ def display_ponds():
         if (i + 1) % 2 == 0:
             end_line = "\n"
 
-        display_string = "[" + str(i + 1) + "] " + extra_space + "- " + PONDS[i].name
+        if i < len(save_obj.level_system.unlocked_ponds):
+            display_string = "[" + str(i + 1) + "] " + extra_space + "- " + PONDS[i].name
+        else:
+            display_string = "[" + str(i + 1) + "] " + extra_space + "- " + "[Locked] (Lvl " + str(PONDS[i].level) + ")"
 
         print(display_string, " " * (tab_dist - len(display_string)), end=end_line)
 
@@ -106,38 +111,40 @@ def select_pond(save_obj):
     while choosing_location:
         title_display("fishing locations")
 
-        display_ponds()
-        print("\n[0] Go Back\n")
+        display_ponds(save_obj)
+        print("\n[q] Go Back\n")
 
         pond_selection = input(">>> Select a pond: ")
-        if pond_selection.isdigit() and (0 <= int(pond_selection) <= len(PONDS) + 1):
-            pond_selection = int(pond_selection)
+        if pond_selection.isdigit() and (1 <= int(pond_selection) <= len(PONDS)):
+            if 0 <= int(pond_selection) <= len(save_obj.level_system.unlocked_ponds):
+                pond_selection = int(pond_selection)
 
-            if pond_selection == 0:
-                return None
+                choosing_option = True
+                while choosing_option:
+                    options = ['Fish Here', 'Pond Info', 'Go Back']
+                    display_options_from_list(options)
 
-            choosing_option = True
-            while choosing_option:
-                options = ['Fish Here', 'Pond Info', 'Go Back']
-                display_options_from_list(options)
-
-                pond_options_select = input(">>> Enter an option: ")
-                if pond_options_select.isdigit() and (0 < int(pond_options_select) <= len(options)):
-                    pond_options_select = int(pond_options_select)
-                    if pond_options_select == 1:
-                        # require rod
-                        while True:
-                            print("(i) Select a rod to equip")
-                            if save_obj.bag.select_item(save_obj, True, Rod, PONDS[pond_selection - 1]):
-                                choosing_option = False
-                                choosing_location = False
+                    pond_options_select = input(">>> Enter an option: ")
+                    if pond_options_select.isdigit() and (0 < int(pond_options_select) <= len(options)):
+                        pond_options_select = int(pond_options_select)
+                        if pond_options_select == 1:
+                            # require rod
+                            while True:
+                                print("(i) Select a rod to equip")
+                                if save_obj.bag.select_item(save_obj, True, Rod, PONDS[pond_selection - 1]):
+                                    choosing_option = False
+                                    choosing_location = False
+                                break
+                        elif pond_options_select == 2:
+                            PONDS[pond_selection - 1].display_pond_info()
+                        else:
                             break
-                    elif pond_options_select == 2:
-                        PONDS[pond_selection - 1].display_pond_info()
-                    else:
-                        break
                 else:
                     print("[!] Invalid Option")
+            else:
+                print("[!] Pond is locked!")
+        elif pond_selection == 'q':
+            return None
         else:
             print("[!] Invalid Option")
 

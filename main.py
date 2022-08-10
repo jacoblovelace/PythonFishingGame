@@ -1,3 +1,4 @@
+import math
 from time import sleep
 from file_functions import *
 from fishing import *
@@ -30,13 +31,14 @@ def start_game(save_obj):
 def main_menu(save_obj):
     # set up shop
     shop = Shop()
-    options = ["Go Fishing", "Shop", "My Bucket", "My Bag", "My Aquarium", "Puzzle", "Exit"]
+    options = ["Go Fishing", "Shop", "My Bucket", "My Bag", "My Aquarium", "Exit"]
     while True:
         save(save_obj)
         title_display("main menu")
+        save_obj.display_stats()
         display_options_from_list(options)
         selection = input(">>> Enter an option: ")
-        if selection.isdigit() and (0 < int(selection) <= len(options)):
+        if selection.isdigit() and (0 < int(selection) <= len(options)-1):
             selection = int(selection)
 
             if selection == 1:
@@ -47,12 +49,10 @@ def main_menu(save_obj):
                 save_obj.bucket.select_fish(save_obj)
             elif selection == 4:
                 save_obj.bag.select_item(save_obj, False, None, None)
-            elif selection == 5:
-                pass
-            elif selection == 6:
-                pass
             else:
-                return False
+                pass
+        elif selection == 'q':
+            return False
         else:
             print("[!] Invalid option")
 

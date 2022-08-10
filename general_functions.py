@@ -7,6 +7,7 @@ def title_display(title):
 
 def display_options_from_list(lst):
     print("")
-    for i in range(0, len(lst)):
+    for i in range(0, len(lst)-1):
         print("[" + str(i + 1) + "] - " + lst[i])
+    print("[q] - " + lst[-1])
     print("")

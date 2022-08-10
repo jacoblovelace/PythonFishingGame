@@ -3,10 +3,6 @@ from general_functions import *
 from Rod import *
 
 
-def display_coins(save_obj):
-    print("Coins: " + str(save_obj.coins))
-
-
 def display_items(item_list):
     print("")
     tab_dist = 40
@@ -58,7 +54,7 @@ def item_options(save_obj, item):
 def select_item(save_obj, item_list, title):
     while True:
         title_display("shop - " + title)
-        display_coins(save_obj)
+        save_obj.display_stats()
         display_items(item_list)
         num = input(">>> (press 'q' to quit) Enter a number: ")
         if num.isdigit() and (0 < int(num) <= len(item_list)):
@@ -72,17 +68,23 @@ def select_item(save_obj, item_list, title):
             print("[!] Invalid option")
 
 
-def powerups_menu():
+def powerups_menu(save_obj, title):
     options = ["Auras", "Trackers", "Nets", "Go Back"]
     while True:
+        title_display("shop - " + title)
+        save_obj.display_stats()
         display_options_from_list(options)
         selection = input(">>> Enter an option: ")
-        if selection.isdigit() and (0 < int(selection) <= len(options)):
+        if selection.isdigit() and (0 < int(selection) <= len(options)-1):
             selection = int(selection)
             if selection == 1:
-                pass
+                select_item(save_obj, Shop.AURAS, "AURAS")
+            elif selection == 2:
+                select_item(save_obj, Shop.TRACKERS, "TRACKERS")
             else:
-                break
+                select_item(save_obj, Shop.NETS, "NETS")
+        elif selection == 'q':
+            break
         else:
             print("[!] Invalid option")
 
@@ -109,22 +111,22 @@ class Shop:
 
         while True:
             title_display("shop")
-            display_coins(save_obj)
+            save_obj.display_stats()
             display_options_from_list(options)
             selection = input(">>> Enter an option: ")
-            if selection.isdigit() and (0 < int(selection) <= len(options)):
+            if selection.isdigit() and (0 < int(selection) <= len(options)-1):
                 selection = int(selection)
                 if selection == 1:
                     select_item(save_obj, self.RODS, options[0])
                 elif selection == 2:
                     select_item(save_obj, self.BAIT, options[1])
                 elif selection == 3:
-                    powerups_menu()
+                    powerups_menu(save_obj, options[2])
                 elif selection == 4:
                     pass
-                elif selection == 5:
-                    pass
                 else:
-                    break
+                    pass
+            elif selection == 'q':
+                break
             else:
                 print("[!] Invalid option")
