@@ -33,7 +33,9 @@ def main_menu(save_obj):
     shop = Shop()
     options = ["Go Fishing", "Shop", "My Bucket", "My Bag", "My Aquarium", "Exit"]
     while True:
+        # SAVE POINT
         save(save_obj)
+
         title_display("main menu")
         save_obj.display_stats()
         display_options_from_list(options)
